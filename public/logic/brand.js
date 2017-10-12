@@ -42,10 +42,11 @@ $(document).ready(function () {
         dataSource: dataSource,
         height: 475,
         filterable: true,
+        resizable: true,
         pageable: { refresh: true, pageSizes: true, },
         toolbar: ['create','excel'],
         columns: [
-            { field: "name", title: "Marca", filterable: { multi: true, search: true, search: true } },
+            { field: "name", title: "Marca", filterable: { search: true } },
             { command: ["edit", "destroy"], title: "Acciones" }],
         editable: "inline"
     });

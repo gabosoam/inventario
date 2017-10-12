@@ -35,6 +35,7 @@ $(document).ready(function () {
         dataSource: dataSource,
         height: 475,
         filterable: true,
+        resizable: true,
         pageable: { refresh: true, pageSizes: true, },
         toolbar: ['create','excel'],
         columns: [

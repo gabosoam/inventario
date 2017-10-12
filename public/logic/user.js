@@ -57,16 +57,17 @@ $(document).ready(function () {
         dataSource: dataSource,
         height: 475,
         filterable: true,
+        resizable: true,
         pageable: { refresh: true, pageSizes: true, },
         toolbar: ['create','excel'],
         columns: [
             { field: "name", title: "Nombre", filterable: { multi: true, search: true, search: true } },
             { field: "lastname", title: "Apellido", filterable: { multi: true, search: true, search: true } },
             { field: "username", title: "Username", filterable: { multi: true, search: true, search: true } },
-            { field: "email", title: "Correo electronico", width: '280px', filterable: {search: true } },
+            { field: "email", title: "Correo electronico", filterable: {search: true } },
             {field: "status", title:"Estado", values:states,filterable: { search: true }},
             { field: "rol", values: roles, title: "Rol", filterable: { multi: true, search: true, search: true } },
-            { command: ["edit","destroy"], title: "Acciones", width: '200px' }],
+            { command: ["edit","destroy"], title: "Acciones" }],
         editable: "popup"
     });
 });

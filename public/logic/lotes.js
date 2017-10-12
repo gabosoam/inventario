@@ -157,42 +157,48 @@ function change() {
 function chargeData() {
     $("#spinner").show();
 
-
     $.post("/lotes/category/", { aux: category.unique() }, function (data) {
-
-
     });
 
-    $.post("/lotes/brand/", { aux: brand.unique() }, function (data) {
+    setTimeout(function () {
+        $.post("/lotes/brand/", { aux: brand.unique() }, function (data) {
+        });
+    }, 5000);
 
-    });
+    setTimeout(function () {
+        $.post("/lotes/model/", { aux: codes.unique() }, function (data) {
+        });
+    }, 10000);
 
-    $.post("/lotes/model/", { aux: codes.unique() }, function (data) {
+    setTimeout(function () {
+        $.post("/lotes/location/", { aux: locationInv.unique() }, function (data) {
+        });
 
-    });
+    }, 15000);
 
-    $.post("/lotes/location/", { aux: locationInv.unique() }, function (data) {
+    setTimeout(function () {
+        $.post("/lotes/barcode/", { aux: barcode }, function (data) {
 
-    });
+        });
+
+    }, 20000);
+
+    setTimeout(function () {
+       
+        $("#spinner").hide();
+    }, 30000);
 
 
-    $.when(send()).then(function () {
-        alert('se termino')
-    });
+
+
+
+
 
 
 }
 
 function send() {
-    $.post("/lotes/barcode/", { aux: barcode }, function (data) {
-        console.log('ya acabe ' + data)
 
-        if (data) {
-            $("#spinner").hide();
-        } else {
-
-        }
-    });
 
 }
 

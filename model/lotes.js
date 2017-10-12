@@ -171,6 +171,7 @@ module.exports = {
                 cant: split[5],
                 observation: split[6]
             };
+            
 
             insert(model);
 
@@ -195,7 +196,10 @@ module.exports = {
 
 
         function insert(data) {
-            console.log(data.barcode);
+            if (data.barcode=='S/N') {
+                console.log(data);
+            }
+          
 
             if (data.price == '') {
                 data.price = 0;
@@ -210,7 +214,7 @@ module.exports = {
                     for (var i = 0; i < data.cant; i++) {
                         connection.query('CALL barcode();', function (error, results, fields) {
                             if (error) {
-                                console.log(error);
+                              //  console.log(error);
                                 callback('error en la consulta: ' + error, null);
                             } else {
 
@@ -233,7 +237,7 @@ module.exports = {
                                                 values: [data.barcode.toUpperCase(), data.variant, data.price, data.location, data.bill, data.observation.toUpperCase()]
                                             }, function (error, results, fields) {
                                                 if (error) {
-                                                    console.log(error)
+                                              //      console.log(error)
 
                                                     return (error);
                                                 } else {

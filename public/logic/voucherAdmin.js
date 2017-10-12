@@ -57,6 +57,7 @@ $(document).ready(function () {
                 dataSource: dataSource,
                 height: 475,
                 filterable: true,
+                resizable: true,
                 pageable: { refresh: true, pageSizes: true, },
                 toolbar: ['excel'],
                 columns: [
@@ -65,7 +66,7 @@ $(document).ready(function () {
                     { field: "reference", title: "Referencia", filterable: { search: true } },
                     { field: "user", values: users, title: "Creado por" },
                     { field: "state", values: states, title: "Estado" },
-                    { command: ["edit"], title: "Acciones", width: '500px' }],
+                    { command: ["edit"], title: "Acciones" }],
                 editable: "popup"
             });
 

@@ -69,7 +69,7 @@ $(document).ready(function () {
                 height: 475,
                 filterable: true,
                 groupable: true,
-
+                resizable: true,
                 pageable: { refresh: true, pageSizes: true, },
                 toolbar: ['excel'],
                 pdf: {
