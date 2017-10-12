@@ -49,6 +49,7 @@ $(document).ready(function () {
                 dataSource: dataSource,
                 height: 475,
                 filterable: true,
+                resizable: true,
                 pageable: { refresh: true, pageSizes: true, },
                 toolbar: ['create', 'excel'],
                 columns: [
@@ -56,7 +57,7 @@ $(document).ready(function () {
                     { field: "date", title: "Fecha",  format: "{0:dd/MM/yyyy}" },
                     { field: "reference", title: "Referencia", filterable: { search: true } },
                     { field: "user", values: users, title: "Creado por" },
-                    { command: ["edit", "destroy", { text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' }], title: "Acciones", width: '500px' }],
+                    { command: ["edit", "destroy", { text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' }], title: "Acciones" }],
                 editable: "popup"
             });
 

@@ -47,6 +47,7 @@ $(document).ready(function () {
         dataSource: dataSource,
         height: 475,
         filterable: true,
+        resizable: true,
         pageable: { refresh: true, pageSizes: true, },
         toolbar: ['create','excel'],
         columns: [
@@ -54,7 +55,7 @@ $(document).ready(function () {
             { field: "name", title: "Nombre o razón social", filterable: { multi: true, search: true, search: true } },
             { field: "address", title: "Direccion", filterable: { multi: true, search: true, search: true } },
             { field: "phone", title: "Telefono", filterable: { multi: true, search: true, search: true } },
-            { field: "email", title: "Correo electrónico", width: '270px', filterable: {search: true, search: true } },
+            { field: "email", title: "Correo electrónico", filterable: {search: true, search: true } },
             { command: ["edit", "destroy"], title: "Acciones" }],
         editable: "popup"
     });

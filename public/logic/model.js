@@ -45,6 +45,7 @@ $(document).ready(function () {
           filterable: true,
           columnMenu: true,
           groupable: true,
+          resizable: true,
           
           pageable: { refresh: true, pageSizes: true, },
           toolbar: ['create','excel'],
@@ -52,7 +53,7 @@ $(document).ready(function () {
        
           columns: [
               { field: "code", title: "Código", filterable: {search: true } },
-              { field: "description", title: "Producto",width: '270px', filterable: { search: true } },
+              { field: "description", title: "Producto",filterable: { search: true } },
               { field: "brand", values:brand, title: "Marca", filterable: {search: true, search: true } },
               { field: "category", values:category, title: "Categoría", filterable: {search: true, search: true } },
               { field: "stockmin", title: "Stock mínimo", filterable: { search: true } },

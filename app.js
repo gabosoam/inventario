@@ -23,6 +23,8 @@ var voucher = require('./routes/voucher');
 var unit = require('./routes/unit');
 var price = require('./routes/price');
 var bill = require('./routes/bill');
+var devolution = require('./routes/devolution');
+var detaildevolution = require('./routes/detailDevolution')
 
 var app = express();
 
@@ -62,6 +64,8 @@ app.use('/voucher', voucher);
 app.use('/unit', unit);
 app.use('/price', price);
 app.use('/bill', bill);
+app.use('/devolution', devolution);
+app.use('/detaildevolution', detaildevolution);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

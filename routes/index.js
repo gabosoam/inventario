@@ -29,6 +29,10 @@ router.get('/vouchers', isLoggedIn, function (req, res, next) {
 	res.render('voucher', { user: sess.usuarioDatos });
 });
 
+router.get('/devolutions', isLoggedIn, function (req, res, next) {
+	res.render('devolution', { user: sess.usuarioDatos });
+});
+
 router.get('/billAdmin', isLoggedInAdmin, function (req, res, next) {
 	res.render('billAdmin', { user: sess.adminDatos });
 });

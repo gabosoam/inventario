@@ -27,30 +27,84 @@
             <div class="sidebar-collapse">
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
-                        <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="../inspinia/img/user.png" style="max-width: 50px" />
-                             </span>
+                        <div class="dropdown profile-element">
+                            <span>
+                                <img alt="image" class="img-circle" src="../inspinia/img/user.png" style="max-width: 50px" />
+                            </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><%= user.name%></strong>
-                             </span> <span class="text-muted text-xs block">Opciones <b class="caret"></b></span> </span> </a>
+                                <span class="clear">
+                                    <span class="block m-t-xs">
+                                        <strong class="font-bold">
+                                            <%= user.name%>
+                                        </strong>
+                                    </span>
+                                    <span class="text-muted text-xs block">Opciones
+                                        <b class="caret"></b>
+                                    </span>
+                                </span>
+                            </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.html">Profile</a></li>
-                                <li><a href="contacts.html">Contacts</a></li>
-                                <li><a href="mailbox.html">Mailbox</a></li>
+                                <li>
+                                    <a href="profile.html">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="contacts.html">Contacts</a>
+                                </li>
+                                <li>
+                                    <a href="mailbox.html">Mailbox</a>
+                                </li>
                                 <li class="divider"></li>
-                                <li><a href="login.html">Logout</a></li>
+                                <li>
+                                    <a href="login.html">Logout</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="logo-element">
                             IN+
                         </div>
                     </li>
-                    <li><a href="/"><i class="fa fa-home"></i> <span class="nav-label">Inicio</span></a></li>
-                    <li><a href="/bill"><i class="fa fa-home"></i> <span class="nav-label">Ingresos</span></a></li>
-                    <li><a href="/vouchers"><i class="fa fa-home"></i> <span class="nav-label">Egresos</span></a></li>
-                    <li><a href="/model"><i class="fa fa-home"></i> <span class="nav-label">Productos</span></a></li>
-                    <li><a href="/client"><i class="fa fa-home"></i> <span class="nav-label">Clientes</span></a></li>
-                    <li class="active"><a href="/provider"><i class="fa fa-home"></i> <span class="nav-label">Proveedores</span></a></li>
+                    <li>
+                        <a href="/">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Inicio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/bill">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Ingresos</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/vouchers">
+                            <i class="fa fa-arrow-left"></i>
+                            <span class="nav-label">Actas de entrega</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/devolutions">
+                            <i class="fa fa-arrow-left"></i>
+                            <span class="nav-label">Actas de retiro</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/model">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Productos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/client">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Clientes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/provider">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Proveedores</span>
+                        </a>
+                    </li>
 
 
                 </ul>
@@ -62,7 +116,9 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
+                            <i class="fa fa-bars"></i>
+                        </a>
                         <form role="search" class="navbar-form-custom" action="search_results.html">
                             <div class="form-group">
 
@@ -76,8 +132,8 @@
 
                         <li>
                             <a href="/logout">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
                         </li>
                     </ul>
 
@@ -94,8 +150,8 @@
                                 <h5>Proveedores</h5>
                                 <div class="ibox-tools">
                                     <a class="collapse-link">
-                                                                <i class="fa fa-chevron-up"></i>
-                                                            </a>
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
 
 
 
@@ -111,25 +167,33 @@
                                             <div class="col-md-3">
                                                 <table class="table">
                                                     <tr>
-                                                        <td><strong>Cliente:</strong></td>
+                                                        <td>
+                                                            <strong>Cliente:</strong>
+                                                        </td>
                                                         <td>
                                                             <%=data.name%>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><strong>Fecha:</strong></td>
+                                                        <td>
+                                                            <strong>Fecha:</strong>
+                                                        </td>
                                                         <td>
                                                             <%=data.date%>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><strong>Referencia:</strong></td>
+                                                        <td>
+                                                            <strong>Referencia:</strong>
+                                                        </td>
                                                         <td>
                                                             <%=data.reference%>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><strong>Creado por:</strong></td>
+                                                        <td>
+                                                            <strong>Creado por:</strong>
+                                                        </td>
                                                         <td>
                                                             <%=data.user%>
                                                         </td>
@@ -145,8 +209,10 @@
                                                 <div class="form-group">
                                                     <label for="code">Número de serie:</label>
                                                     <input autofocus type="text" class="form-control" required id="code2" name="code" style="width: 100%" placeholder="Ingresar número de serie">
-                                                    <br><label for="code">Obervación: (opcional)</label>
-                                                    <textarea autofocus style="resize: none" class="form-control" name="observation" id="observation" rows="2" placeholder="Ingrese una observación"></textarea><br>
+                                                    <br>
+                                                    <label for="code">Obervación: (opcional)</label>
+                                                    <textarea autofocus style="resize: none" class="form-control" name="observation" id="observation" rows="2" placeholder="Ingrese una observación"></textarea>
+                                                    <br>
 
 
                                                     <input id="voucher" type="hidden" value="<%=bill%>">
@@ -231,24 +297,35 @@
 
 
                         <hr>
-                        <center><strong style="font-size: 18px">Acta de entrega</strong></center>
+                        <center>
+                            <strong style="font-size: 18px">Acta de entrega</strong>
+                        </center>
                         <table style="width: 100%">
                             <tr>
                                 <td>
-                                    <h5>Cliente:</h5>
+
                                     <address>
-                                        <strong><%=data.name%></strong><br>
-                                        <%=data.address%><br>
-                                            <%=data.email%>,<br>
+                                        <br>
+                                        <strong>
+                                            <%=data.name%>
+                                        </strong>
+                                        <br>
+                                        <%=data.address%>
+                                            <br>
+                                            <%=data.email%>,
+                                                <br>
                                                 <%=data.phone%>
                                     </address>
                                 </td>
                                 <td style="text-align: right">
 
                                     <address>
-                                        <strong>CINETO TELECOMUNICACIONES S.A.</strong><br> LA PINTA 236 y RÁBIDA.
-                                        <br> info@cineto.net
-                                        <br> (593-2) 5100 528
+                                        <strong>Fecha:</strong>
+                                        <%=data.date%>
+                                            <br>
+                                            <strong>Referencia:</strong>
+                                            <%=data.reference%>
+
                                     </address>
                                 </td>
                             </tr>
@@ -273,7 +350,9 @@
                                     <td>{{code}}</td>
                                     <td>{{barcode}}</td>
                                     <td>{{count}}</td>
-                                    <td><input style="border: 0; width: 100%" type="text" value="{{observation}}"></td>
+                                    <td>
+                                        <input style="border: 0; width: 100%" type="text" value="{{observation}}">
+                                    </td>
                                 </tr>
 
 
@@ -281,7 +360,8 @@
                         </table>
                         <hr>
 
-                        <div class="well m-t"><strong>Comentario</strong>
+                        <div class="well m-t">
+                            <strong>Comentario</strong>
                             <input class="form-control" type="text">
                         </div>
 
@@ -292,7 +372,14 @@
                                 <td>
                                     <center>
                                         <p>
-                                            REPRESENTANTE CLIENTE <br><br><br><br><br> _______________________________<br><br>
+                                            REPRESENTANTE CLIENTE
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br> _______________________________
+                                            <br>
+                                            <br>
                                             <%=data.name%>
                                         </p>
                                     </center>
@@ -301,7 +388,14 @@
                                 <td>
                                     <center>
                                         <p>
-                                            REPRESENTANTE CINETO <br><br><br><br><br> _______________________________<br><br>
+                                            REPRESENTANTE CINETO
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br> _______________________________
+                                            <br>
+                                            <br>
                                             <%=data.user%>
                                         </p>
                                     </center>
