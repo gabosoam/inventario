@@ -29,7 +29,8 @@ $(document).ready(function () {
                     stockmin: { validation: { required: true, }, type: 'string' },
                     unit: { validation: { required: true, }, type: 'string' },
                     brand: { validation: { required: true, }, type: 'string' },
-                    category: { validation: { required: true, }, type: 'string' }
+                    category: { validation: { required: true, }, type: 'string' },
+                    count: { validation: { required: true, }, type: 'number', editable: false  }
                 }
             }
         }
@@ -56,7 +57,7 @@ $(document).ready(function () {
               { field: "category", values:category, title: "Categoría", filterable: {search: true, search: true } },
               { field: "stockmin", title: "Stock mínimo", filterable: { search: true } },
               { field: "unit", values:unit, title: "Unidad de medida", filterable: { search: true } },
-
+              { field: "count",title: "En bodega", filterable: { search: true } },
               { command: ["edit", "destroy"], title: "Acciones" }],
           editable: "popup"
       });

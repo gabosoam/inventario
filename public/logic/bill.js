@@ -36,6 +36,7 @@ $(document).ready(function () {
             model: {
                 id: "id",
                 fields: {
+                    id: { editable: false},
                     provider: { validation: { required: true, size: 13 }, type: 'string' },
                     type: { validation: { required: true, size: 13 }, type: 'string' },
                     date: { validation: { required: true, }, type: 'date' },
@@ -85,7 +86,7 @@ $(document).ready(function () {
                         });
                 },
                 columns: [
-
+                    { field: "id", title: "Código", filterable: { search: true } },
                     { field: "provider", values: providers, title: "Proveedor", filterable: { search: true } },
                     { field: "date", title: "Fecha", filterable: { search: true, search: true }, format: "{0:dd/MM/yyyy}" },
                     { field: "type", values: types, title: "Tipo documento", filterable: { multi: true, search: true, search: true } },

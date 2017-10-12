@@ -4,7 +4,7 @@ var connection = require('../config/connection.js');
 module.exports = {
 
     read: function (callback) {
-        connection.query('SELECT  * FROM model;', function (error, results, fields) {
+        connection.query('SELECT  * FROM v_modelView;', function (error, results, fields) {
             if (error) {
                 callback('error en la consulta: ' + error, null);
             } else {
@@ -45,8 +45,10 @@ module.exports = {
     },
 
     update: function (datos, callback) {
+        console.log(datos.unit);
         connection.query('UPDATE model SET code=?, description=?, stockmin=?, unit=?, brand=?, category=? WHERE (id=?) LIMIT 1', [datos.code.toUpperCase(), datos.description.toUpperCase(), datos.stockmin, datos.unit, datos.brand, datos.category, datos.id], function (error, results, fields) {
             if (error) {
+                console.log(error);
                 callback('error en la consulta: ' + error, null);
             } else {
                 callback(null, results);

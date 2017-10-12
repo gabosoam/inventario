@@ -79,7 +79,7 @@ function processData(csv) {
         brand.push(lines[i][4]);
         locationInv.push(lines[i][6]);
         codes.push(lines[i][0] + '+=+' + lines[i][1] + '+=+' + lines[i][3] + '+=+' + lines[i][4]);
-        barcode.push(lines[i][1] + '+=+' + lines[i][2] + '+=+' + lines[i][5] + '+=+' + lines[i][6] + '+=+' + bill);
+        barcode.push(lines[i][1] + '+=+' + lines[i][2] + '+=+' + lines[i][5] + '+=+' + lines[i][6] + '+=+' + bill + '+=+' + lines[i][7] + '+=+' + lines[i][8]);
     }
 
 
@@ -175,7 +175,17 @@ function chargeData() {
 
     });
 
-    $.post("/lotes/barcode/", { aux: barcode.unique() }, function (data) {
+
+    $.when(send()).then(function () {
+        alert('se termino')
+    });
+
+
+}
+
+function send() {
+    $.post("/lotes/barcode/", { aux: barcode }, function (data) {
+        console.log('ya acabe ' + data)
 
         if (data) {
             $("#spinner").hide();
@@ -183,14 +193,6 @@ function chargeData() {
 
         }
     });
-
-
-
-
-
-
-
-
 
 }
 

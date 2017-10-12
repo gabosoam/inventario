@@ -3,8 +3,8 @@ var connection = require('../config/connection.js');
 
 module.exports = {
 
-    insertCategories: function (data, callback) { 
-        var agree=[];
+    insertCategories: function (data, callback) {
+        var agree = [];
 
         if (typeof data == 'string') {
             insert(data);
@@ -46,7 +46,7 @@ module.exports = {
                 }
             });
         }
-        callback({data: agree});
+        callback({ data: agree });
     },
 
     insertBrands: function (data, callback) {
@@ -55,7 +55,7 @@ module.exports = {
             insert(data);
         } else if (typeof data == 'object') {
             for (var i = 0; i < data.length; i++) {
-                insert(data[i]);
+                insert(data[i])
 
             }
 
@@ -63,13 +63,15 @@ module.exports = {
 
 
         function insert(value) {
+            var good = [];
+            var wrong = [];
             connection.query({
                 sql: 'SELECT * FROM `brand` WHERE `name` = ?',
                 timeout: 40000, // 40s 
                 values: [value]
             }, function (error, results, fields) {
                 if (error) {
-                    return (error);
+                    wrong.push(value);
                 } else {
                     var size = results.length;
                     if (size == 0) {
@@ -79,17 +81,19 @@ module.exports = {
                             values: [value.toUpperCase()]
                         }, function (error, results, fields) {
                             if (error) {
-                                return (error);
+                                wrong.push(value);
                             } else {
-                                return (results);
+                                good.push(value);
                             }
                         })
                     } else {
                     }
                 }
             });
+
+            return { good: good, wrong: wrong }
         }
-        callback(mensaje);
+
     },
 
     insertModels: function (data, callback) {
@@ -128,7 +132,7 @@ module.exports = {
                 timeout: 40000, // 40s 
                 values: [data.code]
             }, function (error, results, fields) {
-              
+
                 if (error) {
                     return (error);
                 } else {
@@ -163,7 +167,9 @@ module.exports = {
                 barcode: split[1],
                 price: split[2],
                 location: split[3],
-                bill: split[4]
+                bill: split[4],
+                cant: split[5],
+                observation: split[6]
             };
 
             insert(model);
@@ -176,7 +182,9 @@ module.exports = {
                     barcode: split[1],
                     price: split[2],
                     location: split[3],
-                    bill: split[4]
+                    bill: split[4],
+                    cant: split[5],
+                    observation: split[6]
                 }
 
                 insert(model);
@@ -187,36 +195,123 @@ module.exports = {
 
 
         function insert(data) {
-          
-            connection.query({
-                sql: 'SELECT * FROM `product` WHERE `barcode` = ?',
-                timeout: 40000, // 40s 
-                values: [data.barcode]
-            }, function (error, results, fields) {
-                if (error) {
-                    return (error);
-                } else {
-                    var size = results.length;
-                    if (size == 0) {
+            console.log(data.barcode);
+
+            if (data.price == '') {
+                data.price = 0;
+            }
+
+            if (data.cant == '') {
+                data.cant = 1
+            }
+
+            switch (data.barcode) {
+                case 'A/S':
+                    for (var i = 0; i < data.cant; i++) {
+                        connection.query('CALL barcode();', function (error, results, fields) {
+                            if (error) {
+                                console.log(error);
+                                callback('error en la consulta: ' + error, null);
+                            } else {
+
+                                data.barcode = results[0];
+                                data.barcode = (data.barcode[0].barcode);
+
+                                connection.query({
+                                    sql: 'SELECT * FROM `product` WHERE `barcode` = ?',
+                                    timeout: 40000, // 40s 
+                                    values: [data.barcode]
+                                }, function (error, results, fields) {
+                                    if (error) {
+                                        return (error);
+                                    } else {
+                                        var size = results.length;
+                                        if (size == 0) {
+                                            connection.query({
+                                                sql: 'INSERT INTO product(barcode, variant, price, location,bill, observation) VALUES(?,(SELECT id FROM model WHERE code=?),?,(SELECT id FROM location WHERE name=?),?,?)',
+                                                timeout: 40000, // 40s 
+                                                values: [data.barcode.toUpperCase(), data.variant, data.price, data.location, data.bill, data.observation.toUpperCase()]
+                                            }, function (error, results, fields) {
+                                                if (error) {
+                                                    console.log(error)
+
+                                                    return (error);
+                                                } else {
+                                                    return (results);
+                                                }
+                                            })
+                                        } else {
+                                        }
+                                    }
+                                });
+
+                            }
+                        });
+
+                    }
+                    break;
+
+                case 'S/N':
+                    for (var i = 0; i < data.cant; i++) {
                         connection.query({
-                            sql: 'INSERT INTO product(barcode, variant, price, location,bill) VALUES(?,(SELECT id FROM model WHERE code=?),?,(SELECT id FROM location WHERE name=?),?)',
+                            sql: 'INSERT INTO product(barcode, variant, price, location,bill,observation) VALUES(?,(SELECT id FROM model WHERE code=?),?,(SELECT id FROM location WHERE name=?),?,?)',
                             timeout: 40000, // 40s 
-                            values: [data.barcode.toUpperCase(), data.variant, data.price, data.location, data.bill]
+                            values: [data.barcode.toUpperCase(), data.variant, data.price, data.location, data.bill, data.observation.toUpperCase()]
                         }, function (error, results, fields) {
                             if (error) {
                                 console.log(error)
-                        
+
                                 return (error);
                             } else {
                                 return (results);
                             }
                         })
-                    } else {
+
                     }
-                }
-            });
+
+                    break;
+                default:
+                    connection.query({
+                        sql: 'SELECT * FROM `product` WHERE `barcode` = ?',
+                        timeout: 40000, // 40s 
+                        values: [data.barcode]
+                    }, function (error, results, fields) {
+                        if (error) {
+                            return (error);
+                        } else {
+                            var size = results.length;
+                            if (size == 0) {
+                                connection.query({
+                                    sql: 'INSERT INTO product(barcode, variant, price, location,bill, observation) VALUES(?,(SELECT id FROM model WHERE code=?),?,(SELECT id FROM location WHERE name=?),?,?)',
+                                    timeout: 40000, // 40s 
+                                    values: [data.barcode.toUpperCase(), data.variant, data.price, data.location, data.bill, data.observation.toUpperCase()]
+                                }, function (error, results, fields) {
+                                    if (error) {
+                                        console.log(error)
+
+                                        return (error);
+                                    } else {
+                                        return (results);
+                                    }
+                                })
+                            } else {
+                            }
+                        }
+                    });
+                    break;
+            }
+
+
+
+
+
         }
-        callback(mensaje);
+
+    },
+
+    insertBarcode2: function (data, callback) {
+        var sql = generate(data);
+
     },
 
     insertLocation: function (data, callback) {
@@ -228,7 +323,6 @@ module.exports = {
                 insert(data[i]);
 
             }
-
         }
 
 
@@ -260,6 +354,53 @@ module.exports = {
                 }
             });
         }
-        callback(mensaje);
+
     },
+}
+
+function generate(data) {
+var values='';
+
+    for (var i = 0; i < data.length; i++) {
+        var split = data[i].split('+=+');
+        var model = {
+            variant: split[0],
+            barcode: split[1],
+            price: split[2],
+            location: split[3],
+            bill: split[4],
+            cant: split[5],
+        }
+
+
+        switch (model.variant) {
+            case 'A/S':
+
+                break;
+            case 'S/N':
+                break;
+
+            default:
+
+                connection.query({
+                    sql: 'SELECT * FROM `producto` WHERE `barcode` = ?',
+                    timeout: 40000, // 40s 
+                    values: [model.variant]
+                }, function (error, results, fields) {
+                    if (error) {
+                      
+                    } else {
+                        //INSERT INTO product(barcode, variant, price, location,bill, observation) VALUES(?,(SELECT id FROM model WHERE code=?),?,(SELECT id FROM location WHERE name=?),?,?)
+                      if (results.length==0) {
+                          values+='VALUES(\''+model.barcode+'\',(SELECT id FROM model WHERE code=\''+model.variant+'\'),\''+model.price+'\',(SELECT id FROM location WHERE name=\''+model.location+'\'),\''+model.bill+'\',\''+model.observation+'\')'
+                      }
+                    }
+                });
+
+
+
+                break;
+        }
+
+    }
 }
