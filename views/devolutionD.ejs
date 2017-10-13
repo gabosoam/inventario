@@ -223,7 +223,7 @@
                                     </center>
                                 </td>
                                 <td style="text-align: right">
-                                    <h5>FOP-
+                                    <h5>RET-
                                         <%=data.id%>
                                     </h5>
                                 </td>
@@ -233,7 +233,7 @@
 
                         <hr>
                         <center><strong style="font-size: 18px">Acta de retiro</strong></center>
-                        <table style="width: 100%">
+                        <table style="width: 100%; font-size: 12px">
                             <tr>
                                 <td>
                            
@@ -257,25 +257,25 @@
 
                         </table>
                         <hr>
-                        <table id="Voucher" class="table invoice-table">
-                            <thead>
+                        <table id="Voucher" class="table ">
+                            <thead style="font-size: 13px">
                                 <tr>
-                                    <th>Item</th>
-                                    <th>Descripción</th>
-                                    <th>Código</th>
-                                    <th>Serie</th>
-                                    <th>Cant.</th>
-                                    <th>Observación</th>
+                                    <th style="text-align: center">Item</th>
+                                    <th style="text-align: center">Descripción</th>
+                                    <th style="text-align: center">Código</th>
+                                    <th style="text-align: center">Serie</th>
+                                    <th style="text-align: center">Cant.</th>
+                                    <th style="text-align: center">Observación</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="font-size: 11px">
                                 <tr w3-repeat="vouchers">
-                                    <td>{{num}}</td>
+                                    <td style="text-align: center">{{num}}</td>
                                     <td>{{description}}</td>
-                                    <td>{{code}}</td>
-                                    <td>{{barcode}}</td>
-                                    <td>{{count}}</td>
-                                    <td><input style="border: 0; width: 100%" type="text" value="{{observation}}"></td>
+                                    <td style="text-align: center">{{code}}</td>
+                                    <td style="text-align: center">{{barcode}}</td>
+                                    <td style="text-align: center">{{count}}</td>
+                                    <td style="text-align: center"><input style="border: 0; width: 100%" type="text" value="{{observation}}"></td>
                                 </tr>
 
 
@@ -289,7 +289,7 @@
 
 
 
-                        <table style="width: 100%; border: 1 ">
+                        <table style="width: 100%; border: 1; font-size: 12px ">
                             <tr>
                                 <td>
                                     <center>

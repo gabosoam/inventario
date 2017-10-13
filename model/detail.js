@@ -134,20 +134,25 @@ module.exports = {
 
               for (var i = 0; i < data.cant; i++) {
                 var value = results[i].id;
-              
+                console.log(value);
                 connection.query('INSERT INTO detail(voucher,product,observation) VALUES(?,?,?)', [data.voucher, value, data.observation.toUpperCase()], function (e, r, f) {
                   if (e) {
                     callback(e, null);
                   } else {
-                  
-                    connection.query("UPDATE `product` SET `state`='2' WHERE (`id`=?)", value, function (er, re, fi) {
-                      if (er) {
-                        console.log(er);
-                        callback(er, null);
-                      } else {
-                        
-                      }
-                    });
+                  }
+                });
+                
+              }
+
+              for (var i = 0; i < data.cant; i++) {
+                var value = results[i].id;
+                console.log(value);
+                connection.query("UPDATE `product` SET `state`='2' WHERE (`id`=?)", value, function (er, re, fi) {
+                  if (er) {
+                    console.log(er);
+                    callback(er, null);
+                  } else {
+                    console.log(re);
                   }
                 });
                 
