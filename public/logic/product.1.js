@@ -11,9 +11,9 @@ $("#save").on("click", function () {
 
 function generateBarcode() {
     $.get("/generateBarcode", function (data) {
-      
+
         $('#barcode').val(data[0].barcode);
-      console.log(data);
+        console.log(data);
     });
 }
 
@@ -81,7 +81,7 @@ function sendData(data) {
         if (r == true) {
             $('#myModal').modal({
                 backdrop: 'static',
-                keyboard: false  
+                keyboard: false
             })
             $('#codeModal').val($('#code2').val());
         } else {
@@ -110,13 +110,15 @@ function sendData2(data) {
 function save() {
     var data = $('#formsave').serialize();
     var data2 = $('#formsave').serializeArray();
-   
 
+    console.log(data2[5].value);
 
-    var confirmation = confirm('Está seguro de guardar el número de serie: ' + data2[5].value);
+    if (data2[5].value == 'S/N') {
+        var x = prompt("Ingresar la cantidad ", "1");
+        var cant = parseInt(x);
+        data2.push({ name: "cant", value: cant });
 
-    if (confirmation) {
-        $.post("/product/create", data, function (info) {
+        $.post("/product/createserial", data2, function (info) {
 
             if (info != 'Ya existe el producto') {
                 $('#grid2').data('kendoGrid').dataSource.read();
@@ -130,9 +132,30 @@ function save() {
 
         });
 
-    } else {
 
+    } else {
+        var confirmation = confirm('Está seguro de guardar el número de serie: ' + data2[5].value);
+
+        if (confirmation) {
+            $.post("/product/create", data, function (info) {
+
+                if (info != 'Ya existe el producto') {
+                    $('#grid2').data('kendoGrid').dataSource.read();
+                    $('#grid2').data('kendoGrid').refresh();
+
+                    $('#barcode').focus();
+                } else {
+                    alert('Ya existe el número de serie');
+                    $('#barcode').focus();
+                }
+
+            });
+
+        }
     }
+
+
+
 
 
 }

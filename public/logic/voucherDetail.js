@@ -1,4 +1,4 @@
-$( "#btnPDF" ).hide();
+$("#btnPDF").hide();
 var validator = $("#formsave").kendoValidator().data("kendoValidator");
 var validatorModel = $("#formSaveModel").kendoValidator().data("kendoValidator");
 $("#save").on("click", function () {
@@ -37,17 +37,24 @@ $('#code2').keypress(function (e) {
             var data = {
                 serie: $(this).val(),
                 voucher: $('#voucher').val(),
-                observation: $('#observation').val()
+                observation: $('#observation').val(),
+                cant: 0,
+                code: null
             }
-            var r = confirm("Está seguro de registrar la salida del producto con número de serie " + $('#code2').val() + "?");
-            if (r) {
-                $.post("/detail/create", data, function (info) {
+
+            if (data.serie == 'S/N') {
+                var x = prompt("Ingresar el código del producto ");
+                var y = prompt("Ingresar la cantidad ");
+                data.cant = y;
+                data.code = x;
+
+                $.post("/detail/createserial", data, function (info) {
 
                     if (info == 'Se registro la salida satisfactoriamente') {
                         $('#grid2').data('kendoGrid').dataSource.read();
                         $('#grid2').data('kendoGrid').refresh();
                         $('#code2').val(null);
-                     
+
 
                     } else {
                         alert(info);
@@ -55,8 +62,29 @@ $('#code2').keypress(function (e) {
 
                 });
 
+            } else {
+
+                var r = confirm("Está seguro de registrar la salida del producto con número de serie " + $('#code2').val() + "?");
+                if (r) {
+                    $.post("/detail/create", data, function (info) {
+
+                        if (info == 'Se registro la salida satisfactoriamente') {
+                            $('#grid2').data('kendoGrid').dataSource.read();
+                            $('#grid2').data('kendoGrid').refresh();
+                            $('#code2').val(null);
+
+
+                        } else {
+                            alert(info);
+                        }
+
+                    });
+
+
+                }
 
             }
+
 
         }
     }
@@ -92,7 +120,7 @@ function sendData2(data) {
 function save() {
     var data = $('#formsave').serialize();
     var data2 = $('#formsave').serializeArray();
-   
+
 
 
     var confirmation = confirm('Está seguro de guardar el número de serie: ' + data2[4].value);

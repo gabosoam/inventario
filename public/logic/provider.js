@@ -36,7 +36,7 @@ $(document).ready(function () {
                     name: { validation: { required: true, }, type: 'string' },
                     address: { validation: { required: true, }, type: 'string' },
                     phone: { validation: { required: true, }, type: 'string' },
-                    email: { validation: { required: true, }, type: 'string' }
+                    email: { validation: { required: true,email: true }, type: 'string' }
                 }
             }
         }

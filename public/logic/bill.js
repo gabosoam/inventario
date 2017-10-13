@@ -13,6 +13,8 @@ var types = [{
 
 
 
+
+
 kendo.culture("es-ES");
 $(document).ready(function () {
 

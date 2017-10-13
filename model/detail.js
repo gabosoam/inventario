@@ -121,4 +121,46 @@ module.exports = {
     })
 
   },
+
+  createserial: function (data, callback) {
+
+    console.log(data)
+    
+        connection.query('SELECT * FROM v_product WHERE barcode= ? AND code=? AND billstate=1 AND stateid = 0', [data.serie, data.code], function (error, results, fields) {
+          if (error) {
+            callback(error,null);
+          } else {
+            if (data.cant<= results.length) {
+
+              for (var i = 0; i < data.cant; i++) {
+                var value = results[i].id;
+              
+                connection.query('INSERT INTO detail(voucher,product,observation) VALUES(?,?,?)', [data.voucher, value, data.observation.toUpperCase()], function (e, r, f) {
+                  if (e) {
+                    callback(e, null);
+                  } else {
+                  
+                    connection.query("UPDATE `product` SET `state`='2' WHERE (`id`=?)", value, function (er, re, fi) {
+                      if (er) {
+                        console.log(er);
+                        callback(er, null);
+                      } else {
+                        
+                      }
+                    });
+                  }
+                });
+                
+              }
+              callback(null, 'Se registro la salida satisfactoriamente');
+              
+            } else {
+              callback(null,'Disponibles: '+results.length+' de '+data.cant+' solicitados');
+            }
+           
+          }
+    
+        })
+    
+      },
 }

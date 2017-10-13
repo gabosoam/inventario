@@ -36,6 +36,20 @@ router.post('/create', isLoggedIn, function(req, res, next) {
   })
 });
 
+
+
+router.post('/createserial', isLoggedIn, function(req, res, next) {
+  var datos = req.body;
+
+  product.createserial(datos, function(error, data) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.send(data);
+    }
+  })
+});
+
 router.post('/delete',isLoggedIn,function(req,res,next) {
   var data= req.body;
 

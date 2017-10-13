@@ -70,6 +70,31 @@ module.exports = {
 
         })
 
+    },
+
+    createserial: function (datos, callback) {
+       
+
+       
+
+      
+        for (var i = 0; i < datos.cant; i++) {
+            connection.query('INSERT INTO product (barcode,variant, location, bill, price, observation) VALUES (?,?,?,?,?,?)',
+                [datos.barcode.toUpperCase(), datos.code, datos.location, datos.bill, datos.price, datos.observation.toUpperCase()],
+                function (error, results, fields) {
+                    if (error) {
+                        console.log(error);
+                        callback(error, null)
+                    } else {
+                        console.log(results);
+                    }
+                });
+        };
+
+        callback(null, 'Ingreso correcto');
+
+
+
     }
 }
 

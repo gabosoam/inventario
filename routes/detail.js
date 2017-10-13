@@ -24,6 +24,19 @@ router.post('/create', function (req, res, next) {
 
 })
 
+router.post('/createserial', function (req, res, next) {
+  var datos = req.body;
+  
+  detail.createserial(datos, function(err, data) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(data);
+    }
+  });
+
+})
+
 router.post('/delete', function (req, res, next) {
   var datos = req.body;
   console.log(datos);
