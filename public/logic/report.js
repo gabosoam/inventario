@@ -46,12 +46,10 @@
           }
         }
       },
-      group: {
-        
-        field: "state", aggregates: [
-          { field: "state", aggregate: "count" }
-        ]
-      },
+     
+
+      group: [ { field: "description", dir: "desc" }, { field: "state", aggregates: [{ field: "state", aggregate: "count" }
+    ] } ],  
       aggregate: [
         { field: "code", aggregate: "count" },
         { field: "category", aggregate: "count" },
@@ -81,6 +79,7 @@
       filterable: true,
       resizable: true,
       groupable: true,
+       
       pageable: { refresh: true },
       columns: [
         { field: "barcode", title: "No de serie", filterable: { search: true } },
@@ -99,12 +98,18 @@
         { field: "state", aggregates: ["count"], title: "Estado", filterable: { multi: true, search: true, search: true },
         groupHeaderTemplate: " #= value # (Cantidad: #= count#)" },
         { field: "location", title: "Ubicación", filterable: { multi: true, search: true } },
-        { field: "observation", title: "Observación", filterable: false }]
+        { field: "observation", title: "Observación", filterable: false }],
+      dataBound: function(e){
+        if (this.dataSource.group().length > 0) {
+          console.log($(".k-grouping-row"));
+
+          for (var i = 0; i < $(".k-grouping-row").length; i++) {
+           this.collapseGroup($(".k-grouping-row")[i]);
+          }
+       
+    }
+      }
     });
-
-    
-
-
     function showDetails(e) {
       e.preventDefault();
       var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
