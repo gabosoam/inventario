@@ -100,6 +100,7 @@
                                 </div>
                             </div>
                             <div class="ibox-content">
+                                <button class="btn btn-success" onclick="etiqueta()">Etiquetas</button>
 
                                 <div id="grid"></div>
 
@@ -128,6 +129,52 @@
         </div>
 
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <button class="btn btn-primary" onclick="print('Etiquetas')">Generar PDF</button>
+        <center>
+            <div id="Etiquetas" class="row" >
+            <div id="rcorners1"  class="col-md-3  "  w3-repeat="etiquetas" >
+                <div id="rcorners2">
+                     <img src="../images/logo_cineto.svg" style="width: 100%;-webkit-filter: grayscale(100%);filter: grayscale(100%);">
+             
+                    <h4>{{description}}</h4>
+                    <p><strong>Código:</strong> {{code}}</p>
+                    <p><strong>Marca:</strong> {{brand}}</p>
+                     <p><strong>Categoría:</strong> {{category}}</p>
+                    <p><strong>Ubicación:</strong> {{location}}</p>
+                    <p><strong>Número de serie:</strong> {{barcode}}</p>
+
+                 <div  id="manchego"></div>
+                    
+                </div>
+               
+                
+            </div>
+        </div>
+        </center>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <div id="modal"></div>
     <script>
         var user = '<%= user.id%>';
@@ -151,8 +198,29 @@
 
      <!-- Jquery Validate -->
      <script src="js/plugins/validate/jquery.validate.min.js"></script>
+      <script src="../js/w3.js"></script>
 
     <script src="../logic/report.js"></script>
+    <script src="../js/jquery.PrintArea.js"></script>
+    <script src="../js/pdf/jspdf.min.js"></script>
+    <script src="../js/pdf/html2canvas.min.js"></script>
+    <script src="../js/pdf/html2pdf.js"></script>
+   
+
+
+    <script type="text/javascript">
+        function print(elem) {
+         //$('#Etiquetas').printArea();
+         var element = document.getElementById('Etiquetas');
+            html2pdf(element,{
+                margin:       0,
+                filename:     'myfile.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { dpi: 192, letterRendering: true },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            });
+        }
+    </script>
 
 
 
@@ -160,3 +228,26 @@
 </body>
 
 </html>
+
+<style type="text/css">
+    #rcorners2 {
+    border-radius: 25px;
+    border: 2px solid black;
+    padding: 10px; 
+    text-align: center;
+    width: 5.25cm
+    margin: 5px 5px 5px 5px;
+
+}
+
+#rcorners1{
+    border: 1px solid black; 
+    border-style: dashed;
+    padding: 10px
+}
+
+#Etiquetas{
+   
+    padding: 30px
+}
+</style>

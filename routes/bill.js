@@ -116,6 +116,7 @@ router.post('/create', function (req, res, next) {
   var datos = req.body;
   bill.create(datos, function (error, datos) {
     if (error) {
+      console.log(error);
 
       res.sendStatus(500);
     } else {
