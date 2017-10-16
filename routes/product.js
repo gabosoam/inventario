@@ -24,6 +24,14 @@ router.get('/read', function(req,res,next) {
   });
 })
 
+router.get('/updateprice', function(req,res,next) {
+  var data = req.body;
+  console.log(data);
+  res.send(true);
+  
+
+})
+
 router.post('/create', isLoggedIn, function(req, res, next) {
   var datos = req.body;
 

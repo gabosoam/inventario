@@ -47,13 +47,15 @@
         }
       },
       group: {
-        field: "code", aggregates: [
-          { field: "code", aggregate: "count" }
+        
+        field: "state", aggregates: [
+          { field: "state", aggregate: "count" }
         ]
       },
       aggregate: [
         { field: "code", aggregate: "count" },
-        { field: "category", aggregate: "count" }],
+        { field: "category", aggregate: "count" },
+        { field: "state", aggregate: "count" }],
       pageSize: 1000
     }
     );
@@ -84,7 +86,7 @@
         { field: "barcode", title: "No de serie", filterable: { search: true } },
         {
           field: "code", aggregates: ["count"], title: "Código",
-          groupHeaderTemplate: "Código: #= value # (Cantidad: #= count#)", filterable: { multi: true, search: true, search: true }
+          groupHeaderTemplate: "Código: #= value # (#= count#)", filterable: { multi: true, search: true, search: true }
         },
         { field: "description", title: "Producto", filterable: { multi: true, search: true, search: true } },
         {
@@ -94,7 +96,8 @@
         { field: "brand", title: "Marca", filterable: { multi: true, search: true } },
         { field: "date", title: "F. Ingreso", filterable: { search: true, search: true }, format: "{0:dd/MM/yyyy}" },
         { field: "reference", title: "Referencia", filterable: { search: true, search: true } },
-        { field: "state", title: "Estado", filterable: { multi: true, search: true, search: true } },
+        { field: "state", aggregates: ["count"], title: "Estado", filterable: { multi: true, search: true, search: true },
+        groupHeaderTemplate: " #= value # (Cantidad: #= count#)" },
         { field: "location", title: "Ubicación", filterable: { multi: true, search: true } },
         { field: "observation", title: "Observación", filterable: false }]
     });

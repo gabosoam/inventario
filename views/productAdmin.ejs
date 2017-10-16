@@ -6,15 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sistema de inventario</title>
+    <title>Sistema de inventario soso</title>
 
-    <link href="../inspinia/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="../inspinia/css/animate.css" rel="stylesheet">
-    <link href="../inspinia/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../kendo/css/kendo.common-bootstrap.min.css" />
-    <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.min.css" />
-    <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.mobile.min.css" />
+    <link href="/inspinia/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/inspinia/css/animate.css" rel="stylesheet">
+    <link href="/inspinia/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/kendo/css/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="/kendo/css/kendo.bootstrap.min.css" />
+    <link rel="stylesheet" href="/kendo/css/kendo.bootstrap.mobile.min.css" />
 
 
 </head>
@@ -29,7 +29,7 @@
                     <li class="nav-header">
                         <div class="dropdown profile-element">
                             <span>
-                                <img alt="image" class="img-circle" src="../inspinia/img/user.png" style="max-width: 50px" />
+                                <img alt="image" class="img-circle" src="/inspinia/img/user.png" style="max-width: 50px" />
                             </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
@@ -63,23 +63,48 @@
                             IN+
                         </div>
                     </li>
-                   
-
-                    <li><a href="/"><i class="fa fa-home"></i> <span class="nav-label">Inicio</span></a></li>
-                    <li class="active">
-                        <a href="/bill"><i class="fa fa-arrow-right"></i> <span class="nav-label">Ingresos</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li class="active"><a href="/bill">Ingreso normal</a></li>
-                            <li><a href="/lotes">Ingreso por lotes</a></li>
-              
-                        </ul>
+                    <li>
+                        <a href="/">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Inicio</span>
+                        </a>
                     </li>
-                    <li><a href="/vouchers"><i class="fa fa-arrow-left"></i> <span class="nav-label">Egresos</span></a></li>
-                    <li><a href="/devolutions"><i class="fa fa-arrow-left"></i> <span class="nav-label">Retiros</span></a></li>
-                    <li><a href="/model"><i class="fa fa-cube"></i> <span class="nav-label">Productos</span></a></li>
-                    <li><a href="/client"><i class="fa fa-address-book"></i> <span class="nav-label">Clientes</span></a></li>
-                    <li><a href="/provider"><i class="fa fa-truck"></i> <span class="nav-label">Proveedores</span></a></li>
-
+                    <li class="active">
+                        <a href="/bill">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Ingresos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/vouchers">
+                            <i class="fa fa-arrow-left"></i>
+                            <span class="nav-label">Actas de entrega</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/devolutions">
+                            <i class="fa fa-arrow-left"></i>
+                            <span class="nav-label">Actas de retiro</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/model">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Productos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/client">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Clientes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/provider">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Proveedores</span>
+                        </a>
+                    </li>
 
 
                 </ul>
@@ -176,91 +201,12 @@
 
                                                 </table>
 
-                                                <button id="closeBill" class="btn btn-danger">Cerrar ingreso</button>
+                                               
 
 
 
                                             </div>
-                                            <div class="col-md-9">
-
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="code">Código:</label>
-                                                            <input autofocus type="text" class="form-control" validationMessage="Selecciona un producto" required id="code2" name="code"
-                                                                style="width: 100%" placeholder="Buscar por código">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-8">
-                                                        <div class="form-group">
-                                                            <label for="pwd">Nombre del producto:</label>
-                                                            <input type="text" class="form-control" validationMessage="Nombre" name="description" required id="nameProduct" style="width: 100%">
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <form id="formsave" disabled>
-                                                        <input type="hidden" name="bill" value="<%= bill %>">
-                                                        <input type="hidden" required name="code" id="modelProduct" value="">
-
-                                                        <div class="col-md-3">
-                                                            <div class="form-group">
-                                                                <label for="pwd">Almacén:</label>
-                                                                <input type="text" class="form-control" validationMessage="Selecciona un almacén" name="location" required id="location"
-                                                                    style="width: 100%">
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-md-2">
-                                                            <div class="form-group">
-                                                                <label for="pwd">Precio de costo:</label>
-                                                                <input type="number" validationMessage="Ingresa el precio del producto" class="form-control" required name="price" placeholder="Precio"
-                                                                    id="price" style="width: 100%">
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-md-3">
-                                                            <div class="form-group">
-                                                                <label for="pwd">Observación:</label>
-                                                                <textarea style="resize: none" class="form-control" name="observation" id="" rows="2" placeholder="Ingrese una observación"></textarea>
-
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="form-group">
-                                                                <label for="pwd">Número de serie:</label>
-                                                                <input type="text" class="form-control" validationMessage="Ingresa el número de serie" name="barcode" required id="barcode"
-                                                                    placeholder="Número de serie" style="width: 100%">
-                                                                <button type="button" onclick="generateBarcode()" style="width: 100%" class="btn btn-default">Generar No. de serie</button>
-                                                                <span id="manchego"></span>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-md-1">
-                                                            <label for="pwd">&nbsp</label>
-                                                            <button id="save" type="button" class="btn btn-primary">Guardar</button>
-
-                                                        </div>
-                                                    </form>
-
-
-
-
-                                                </div>
-
-                                                
-
-
-                                            </div>
+                                         
 
 
 
@@ -325,10 +271,7 @@
                                 <td></td>
                                 <td>
                                     <center>
-                                        <img class="" src="../image/logo.svg" width="280px" />
-
-
-
+                                        <img class="" src="/image/logo.svg" width="280px" />
 
                                     </center>
                                 </td>
@@ -550,32 +493,23 @@
 
 
     <!-- Mainly scripts -->
-    <script src="../inspinia/js/jquery-3.1.1.min.js"></script>
-    <script src="../inspinia/js/bootstrap.min.js"></script>
-    <script src="../inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="../inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/inspinia/js/jquery-3.1.1.min.js"></script>
+    <script src="/inspinia/js/bootstrap.min.js"></script>
+    <script src="/inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="../inspinia/js/inspinia.js"></script>
-    <script src="../inspinia/js/plugins/pace/pace.min.js"></script>
-    <script src="../kendo/js/kendo.all.min.js"></script>
-    <script src="../kendo/js/jszip.min.js"></script>
-    <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
-    <script src="../js/w3.js"></script>
-    <script src="../js/jquery.PrintArea.js"></script>
+    <script src="/inspinia/js/inspinia.js"></script>
+    <script src="/inspinia/js/plugins/pace/pace.min.js"></script>
+    <script src="/kendo/js/kendo.all.min.js"></script>
+    <script src="/kendo/js/jszip.min.js"></script>
+    <script src="/kendo/js/kendo.messages.es-MX.min.js"></script>
+    <script src="/js/w3.js"></script>
+    <script src="/js/jquery.PrintArea.js"></script>
+    
 
     <script>
-        $.get("/bill/read/<%=bill%>", function (data) {
-
-
-            w3.displayObject("Voucher", { vouchers: data });
-
-        });
-
-        function print() {
-            $('#print').printArea();
-
-        }
+     
     </script>
 
     <% if (bill) { %>
@@ -588,13 +522,8 @@
         </script>
         <% } %>
 
-            <% if (data.state == 0) { %>
-                <script src="../logic/product.1.js"></script>
-                <% } else { %>
-                    <script src="../logic/product.2.js"></script>
-                    <% } %>
-
-
+          
+        <script src="/logic/productAdmin.js"></script>
 
 
 

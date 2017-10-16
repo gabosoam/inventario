@@ -27,14 +27,26 @@
             <div class="sidebar-collapse">
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
-                        <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="../inspinia/img/user.png" style="max-width: 50px" />
-                             </span>
+                        <div class="dropdown profile-element">
+                            <span>
+                                <img alt="image" class="img-circle" src="../inspinia/img/user.png" style="max-width: 50px" />
+                            </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><%= user.name%></strong>
-                             </span> <span class="text-muted text-xs block">Opciones <b class="caret"></b></span> </span> </a>
+                                <span class="clear">
+                                    <span class="block m-t-xs">
+                                        <strong class="font-bold">
+                                            <%= user.name%>
+                                        </strong>
+                                    </span>
+                                    <span class="text-muted text-xs block">Opciones
+                                        <b class="caret"></b>
+                                    </span>
+                                </span>
+                            </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a data-toggle="modal" data-target="#myModal">Cambiar contraseña</a></li>
+                                <li>
+                                    <a data-toggle="modal" data-target="#myModal">Cambiar contraseña</a>
+                                </li>
 
                             </ul>
                         </div>
@@ -42,13 +54,58 @@
                             IN+
                         </div>
                     </li>
-                    <li class="active"><a href="/"><i class="fa fa-home"></i> <span class="nav-label">Inicio</span></a></li>
-                    <li><a href="/bill"><i class="fa fa-arrow-right"></i> <span class="nav-label">Ingresos</span></a></li>
-                    <li><a href="/vouchers"><i class="fa fa-arrow-left"></i> <span class="nav-label">Actas de entrega</span></a></li>
-                    <li><a href="/devolutions"><i class="fa fa-arrow-left"></i> <span class="nav-label">Actas de retiro</span></a></li>
-                    <li><a href="/model"><i class="fa fa-cube"></i> <span class="nav-label">Productos</span></a></li>
-                    <li><a href="/client"><i class="fa fa-address-book"></i> <span class="nav-label">Clientes</span></a></li>
-                    <li><a href="/provider"><i class="fa fa-truck"></i> <span class="nav-label">Proveedores</span></a></li>
+                    <li class="active">
+                        <a href="/">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Inicio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/bill">
+                            <i class="fa fa-arrow-right"></i>
+                            <span class="nav-label">Ingresos</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/bill">Ingreso normal</a>
+                            </li>
+                            <li>
+                                <a href="/lotes">Ingreso por lotes</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/vouchers">
+                            <i class="fa fa-arrow-left"></i>
+                            <span class="nav-label">Egresos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/devolutions">
+                            <i class="fa fa-arrow-left"></i>
+                            <span class="nav-label">Retiros</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/model">
+                            <i class="fa fa-cube"></i>
+                            <span class="nav-label">Productos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/client">
+                            <i class="fa fa-address-book"></i>
+                            <span class="nav-label">Clientes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/provider">
+                            <i class="fa fa-truck"></i>
+                            <span class="nav-label">Proveedores</span>
+                        </a>
+                    </li>
 
 
                 </ul>
@@ -60,7 +117,9 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
+                            <i class="fa fa-bars"></i>
+                        </a>
                         <form role="search" class="navbar-form-custom" action="search_results.html">
                             <div class="form-group">
 
@@ -74,8 +133,8 @@
 
                         <li>
                             <a href="/logout">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
                         </li>
                     </ul>
 
@@ -89,11 +148,12 @@
                     <div class="col-md-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5><span class="fa fa-home"></span> Inicio</h5>
+                                <h5>
+                                    <span class="fa fa-home"></span> Inicio</h5>
                                 <div class="ibox-tools">
                                     <a class="collapse-link">
-                                                                <i class="fa fa-chevron-up"></i>
-                                                            </a>
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
 
 
 
@@ -130,50 +190,62 @@
 
     </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <button class="btn btn-primary" onclick="print('Etiquetas')">Generar PDF</button>
-        <center>
-            <div id="Etiquetas" class="row" >
-            <div id="rcorners1"  class="col-md-3  "  w3-repeat="etiquetas" >
-                <div id="rcorners2">
-                     <img src="../images/logo_cineto.svg" style="width: 100%;-webkit-filter: grayscale(100%);filter: grayscale(100%);">
-             
-                    <h4>{{description}}</h4>
-                    <p><strong>Código:</strong> {{code}}</p>
-                    <p><strong>Marca:</strong> {{brand}}</p>
-                     <p><strong>Categoría:</strong> {{category}}</p>
-                    <p><strong>Ubicación:</strong> {{location}}</p>
-                    <p><strong>Número de serie:</strong> {{barcode}}</p>
-
-                 <div  id="manchego"></div>
-                    
+    <!-- Modal -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-               
-                
+                <div class="modal-body">
+
+                    <button class="btn btn-primary" onclick="print('Etiquetas')">Generar PDF</button>
+                    <center>
+                        <div id="Etiquetas" style="min-width: 180mm; font-family: 'Arial Narrow'; font-size: 10px">
+                            <table id="" class="table  table-bordered" style="width: 75%">
+                                <tbody>
+                                    <tr w3-repeat="etiquetas">
+        
+                                        <td style="font-size: 10px">
+                                            <label>Producto:</label>
+                                            {{description}}
+                                        </td>
+                                        <td style="font-size: 10px">{{code}} <br> {{barcode}} </td>
+                                            
+                                        <td style="font-size: 10px">
+                                        <label>Ubicación:</label><br>
+                                        {{location}}
+                                        </td>
+
+                                        <td style="font-size: 10px">
+                                        <center>
+                                        <label>Cantidad:</label><br>
+                                        1
+                                        </center>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+
+                    </center>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
-        </center>
-        
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
     </div>
-  </div>
-</div>
 
     <div id="modal"></div>
     <script>
@@ -196,29 +268,22 @@
     <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
     <script src="../logic/changePassword.js"></script>
 
-     <!-- Jquery Validate -->
-     <script src="js/plugins/validate/jquery.validate.min.js"></script>
-      <script src="../js/w3.js"></script>
+    <!-- Jquery Validate -->
+    <script src="js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="../js/w3.js"></script>
 
     <script src="../logic/report.js"></script>
     <script src="../js/jquery.PrintArea.js"></script>
     <script src="../js/pdf/jspdf.min.js"></script>
     <script src="../js/pdf/html2canvas.min.js"></script>
     <script src="../js/pdf/html2pdf.js"></script>
-   
+
 
 
     <script type="text/javascript">
         function print(elem) {
-         //$('#Etiquetas').printArea();
-         var element = document.getElementById('Etiquetas');
-            html2pdf(element,{
-                margin:       0,
-                filename:     'myfile.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { dpi: 192, letterRendering: true },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            });
+            $('#Etiquetas').printArea();
+
         }
     </script>
 
@@ -231,23 +296,22 @@
 
 <style type="text/css">
     #rcorners2 {
-    border-radius: 25px;
-    border: 2px solid black;
-    padding: 10px; 
-    text-align: center;
-    width: 5.25cm
-    margin: 5px 5px 5px 5px;
+        border-radius: 25px;
+        border: 2px solid black;
+        padding: 10px;
+        text-align: center;
+        width: 5.25cm margin: 5px 5px 5px 5px;
 
-}
+    }
 
-#rcorners1{
-    border: 1px solid black; 
-    border-style: dashed;
-    padding: 10px
-}
+    #rcorners1 {
+        border: 1px solid black;
+        border-style: dashed;
+        padding: 10px
+    }
 
-#Etiquetas{
-   
-    padding: 30px
-}
+    #Etiquetas {
+
+        padding: 30px
+    }
 </style>

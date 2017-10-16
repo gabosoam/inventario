@@ -20,11 +20,37 @@ router.get('/:bill', isLoggedIn, function (req, res, next) {
 
 });
 
+router.get('/admin/:bill', isLoggedInAdmin, function (req, res, next) {
+  var billsend = req.params.bill;
+
+  bill.readOne(billsend, function (error, data) {
+
+    res.render('productAdmin', { user: sess.adminDatos, bill: billsend, data: data[0] });
+  })
+
+});
+
 router.get('/read/:bill', isLoggedIn, function (req, res, next) {
   var bill = req.params.bill;
 
   product.readBill(bill, function (error, data) {
     res.send(data);
+
+  })
+});
+
+router.get('/readprice/:bill', isLoggedInAdmin, function (req, res, next) {
+  var bill = req.params.bill;
+
+  product.readBillPrice(bill, function (error, data) {
+
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(data);
+      res.send(data);
+    }
+    
 
   })
 });

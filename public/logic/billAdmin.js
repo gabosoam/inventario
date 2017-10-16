@@ -100,7 +100,7 @@ $(document).ready(function () {
                     { field: "user", values: users, title: "Creado por" },
                     { field: "state", values: states, title: "Estado" },
 
-                    { command: ["edit" ], title: "Acciones" }],
+                    { command: ["edit", { text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' } ], title: "Acciones" }],
                 editable: "popup"
             });
 
@@ -113,7 +113,7 @@ $(document).ready(function () {
     function showDetails(e) {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        location.href = "/bill/" + dataItem.id;
+        location.href = "/bill/admin/" + dataItem.id;
     }
 
 

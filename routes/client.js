@@ -7,6 +7,10 @@ router.get('/', isLoggedIn, function (req, res, next) {
   res.render('client', {  user: sess.usuarioDatos });
 });
 
+router.get('/admin', isLoggedInAdmin, function (req, res, next) {
+  res.render('clientAdmin', {  user: sess.adminDatos });
+});
+
 
 
 
@@ -89,6 +93,15 @@ function isLoggedIn(req, res, next) {
     return next();
   sess.originalUrl = req.originalUrl;
   res.redirect('/login');
+}
+
+function isLoggedInAdmin(req, res, next) {
+	sess = req.session;
+
+	if (sess.adminDatos)
+		return next();
+	sess.originalUrl = req.originalUrl;
+	res.redirect('/login');
 }
 
 

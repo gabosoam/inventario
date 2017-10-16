@@ -27,6 +27,18 @@ module.exports = {
         });
     },
 
+    readBillPrice: function (bill, callback) {
+        connection.query('SELECT * FROM v_billprice WHERE bi=?', bill, function (error, results, fields) {
+            if (error) {
+
+                callback('error en la consulta: ' + error, null);
+            } else {
+                callback(null, results);
+
+            }
+        });
+    },
+
     update: function (datos, callback) {
         connection.query('UPDATE location SET name=?,description=? WHERE (id=?) LIMIT 1', [datos.name, datos.description, datos.id], function (error, results, fields) {//
             if (error) {

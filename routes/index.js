@@ -37,11 +37,11 @@ router.get('/billAdmin', isLoggedInAdmin, function (req, res, next) {
 	res.render('billAdmin', { user: sess.adminDatos });
 });
 
-router.get('/lotes', isLoggedInAdmin, function (req, res, next) {
-	res.render('lotes', { user: sess.adminDatos });
+router.get('/lotes', isLoggedIn, function (req, res, next) {
+	res.render('lotes', { user: sess.usuarioDatos });
 });
 
-router.post('/lotes/category', isLoggedInAdmin, function (req, res, next) {
+router.post('/lotes/category', isLoggedIn, function (req, res, next) {
 	var data = req.body;
 	var values = data['aux[]'];
 
@@ -52,7 +52,7 @@ router.post('/lotes/category', isLoggedInAdmin, function (req, res, next) {
 
 });
 
-router.post('/lotes/model', isLoggedInAdmin, function (req, res, next) {
+router.post('/lotes/model', isLoggedIn, function (req, res, next) {
 	var data = req.body;
 	var values = data['aux[]'];
 	
@@ -63,7 +63,7 @@ router.post('/lotes/model', isLoggedInAdmin, function (req, res, next) {
 
 });
 
-router.post('/lotes/barcode', isLoggedInAdmin, function (req, res, next) {
+router.post('/lotes/barcode', isLoggedIn, function (req, res, next) {
 	var data = req.body;
 	var values = data['aux[]'];
 	
@@ -75,7 +75,7 @@ router.post('/lotes/barcode', isLoggedInAdmin, function (req, res, next) {
 
 });
 
-router.post('/lotes/brand', isLoggedInAdmin, function (req, res, next) {
+router.post('/lotes/brand', isLoggedIn, function (req, res, next) {
 	var data = req.body;
 	var values = data['aux[]'];
 
@@ -86,7 +86,7 @@ router.post('/lotes/brand', isLoggedInAdmin, function (req, res, next) {
 
 });
 
-router.post('/lotes/location', isLoggedInAdmin, function (req, res, next) {
+router.post('/lotes/location', isLoggedIn, function (req, res, next) {
 	var data = req.body;
 	var values = data['aux[]'];
 
