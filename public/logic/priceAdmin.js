@@ -40,6 +40,7 @@ $(document).ready(function () {
         aggregate: [
             { field: "total", aggregate: "sum",  format:"{0:c2}" }
         ],
+        pageSize: 1000
     }
     );
 
@@ -50,7 +51,7 @@ $(document).ready(function () {
         resizable: true,
         groupable: true,
         pageable: { refresh: true, pageSizes: true, },
-        toolbar: ['pdf','excel'],
+        toolbar: ['excel'],
         columns: [
             { field: "count", title: "Cantidad", filterable: false },
             { field: "code", title: "Código", filterable: { search: true } },
