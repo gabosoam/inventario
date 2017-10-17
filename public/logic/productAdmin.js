@@ -356,6 +356,8 @@ $(document).ready(function () {
                     id:{editable:false},
                     code: { editable: false },
                     description: { validation: { required: true }, type: 'string', editable: false },
+                    count:{type: 'number', editable: false},
+                    total:{type: 'number', editable: false},
                     price: { type: 'number' },
                     bill: { type: 'number' }
                 }
@@ -399,9 +401,11 @@ $(document).ready(function () {
                 });
         },
         columns: [
+            {field: 'count', title: 'Cantidad'},
             { field: "code", title: "Código", filterable: { search: true } },
             { field: "description", title: "Producto", filterable: { search: true } },
-            { field: "price", title: "Precio" },
+            { field: "price", title: "Precio Unitario" },
+            { field: "total", title: "Precio Total" },
             { field: "bill", title: "Factura", width: '1px' },
             { command: ["edit",], title: "Acciones" }],
         editable: "inline"

@@ -28,12 +28,12 @@ module.exports = {
     },
 
     readBillPrice: function (bill, callback) {
-        connection.query('SELECT * FROM v_billprice WHERE bi=?', bill, function (error, results, fields) {
+        connection.query('CALL p_billprice(?)', bill, function (error, results, fields) {
             if (error) {
 
                 callback('error en la consulta: ' + error, null);
             } else {
-                callback(null, results);
+                callback(null, results[0]);
 
             }
         });
@@ -48,6 +48,22 @@ module.exports = {
 
             }
         });
+    },
+
+
+    updateprice: function name(data, callback) {
+        connection.query({
+            sql: 'UPDATE product SET price=? WHERE variant=? AND bill=?',
+            values: [data.price,data.id, data.bill]
+        }, function(err, results, fields) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, results);
+            }
+            
+        })
+        
     },
 
     delete: function (datos, callback) {
