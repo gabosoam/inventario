@@ -14,8 +14,25 @@ router.get('/', isLoggedIn, function (req, res, next) {
   }
 });
 
+router.get('/price', isLoggedInAdmin, function (req, res, next) {
+
+    res.render('price', { user: sess.adminDatos });
+ 
+});
+
 router.get('/read', function (req, res, next) {
   product.read(function (error, data) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.send(data);
+    }
+  });
+})
+
+router.get('/readprice', function (req, res, next) {
+ 
+  product.readprice(function (error, data) {
     if (error) {
       res.send(error);
     } else {
@@ -89,6 +106,15 @@ function isLoggedIn(req, res, next) {
     return next();
   sess.originalUrl = req.originalUrl;
   res.redirect('/login');
+}
+
+function isLoggedInAdmin(req, res, next) {
+	sess = req.session;
+
+	if (sess.adminDatos)
+		return next();
+	sess.originalUrl = req.originalUrl;
+	res.redirect('/login');
 }
 
 

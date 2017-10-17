@@ -363,6 +363,9 @@ $(document).ready(function () {
                 }
             }
         },
+        aggregate: [
+            { field: "total", aggregate: "sum",  format:"{0:c2}" }
+        ],
       
         pageSize: 1000
     },
@@ -389,6 +392,7 @@ $(document).ready(function () {
             template: $("#page-template").html(),
             scale: 0.8
         },
+        
         pdfExport: function (e) {
             var grid = $("#grid2").data("kendoGrid");
             grid.hideColumn(5);
@@ -400,12 +404,13 @@ $(document).ready(function () {
                     grid.showColumn(7);
                 });
         },
+        
         columns: [
             {field: 'count', title: 'Cantidad'},
             { field: "code", title: "Código", filterable: { search: true } },
             { field: "description", title: "Producto", filterable: { search: true } },
-            { field: "price", title: "Precio Unitario" },
-            { field: "total", title: "Precio Total" },
+            { field: "price", title: "Costo Unitario", format:"{0:c2}" },
+            {field: "total", title:"Costo Total", footerTemplate: "Total: #: data.total ? sum: 0 #", format:"{0:c2}"},
             { field: "bill", title: "Factura", width: '1px' },
             { command: ["edit",], title: "Acciones" }],
         editable: "inline"

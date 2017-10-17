@@ -66,6 +66,20 @@ module.exports = {
         
     },
 
+    readprice: function(callback) {
+  
+        connection.query({
+            sql: 'CALL p_billprice2;'
+        }, function(err, results, fields) {
+            if (err) {
+        
+                callback(err, null)
+            } else {
+                callback(null, results[0])
+            }
+        });
+    },
+
     delete: function (datos, callback) {
         connection.query('DELETE FROM product WHERE id=?', [datos.id], function (error, results, fields) {//
             if (error) {
