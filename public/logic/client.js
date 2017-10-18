@@ -34,9 +34,9 @@ $(document).ready(function () {
                     id: { editable: false, nullable: false},
                     dni: { validation: { required: true, size:13 }, type: 'string' },
                     name: { validation: { required: true, }, type: 'string' },
-                    address: { validation: { required: true, }, type: 'string' },
-                    phone: { validation: { required: true, }, type: 'string' },
-                    email: { validation: { required: true, email: true }, type: 'string' }
+                    address: { validation: { required: false, }, type: 'string' },
+                    phone: { validation: { required: false, }, type: 'string' },
+                    email: { validation: { required: false, email: true }, type: 'string' }
                 }
             }
         }
