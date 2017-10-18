@@ -77,9 +77,9 @@ function processData(csv) {
     for (var i = 1; i < lines.length - 1; i++) {
         category.push(lines[i][3]);
         brand.push(lines[i][4]);
-        locationInv.push(lines[i][6]);
+        locationInv.push(lines[i][5]);
         codes.push(lines[i][0] + '+=+' + lines[i][1] + '+=+' + lines[i][3] + '+=+' + lines[i][4]);
-        barcode.push(lines[i][1] + '+=+' + lines[i][2] + '+=+' + lines[i][5] + '+=+' + lines[i][6] + '+=+' + bill + '+=+' + lines[i][7] + '+=+' + lines[i][8]);
+        barcode.push(lines[i][1] + '+=+' + lines[i][2] + '+=+' + lines[i][5] + '+=+' + lines[i][6] + '+=+' + bill);
     }
 
 

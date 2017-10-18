@@ -37,6 +37,8 @@ $(document).ready(function () {
             }
         },
 
+        group: [ { field: "bill", dir: "desc" }],
+
         aggregate: [
             { field: "total", aggregate: "sum",  format:"{0:c2}" }
         ],
@@ -56,13 +58,22 @@ $(document).ready(function () {
             { field: "count", title: "Cantidad", filterable: false },
             { field: "code", title: "Código", filterable: { search: true } },
             { field: "description", title: "Producto", filterable: {multi: true, search: true } },
-            { field: "bill", title: "Código de ingreso", filterable: { search: true } },
+            { field: "bill", title: "Código de ingreso", filterable: { search: true }, groupHeaderTemplate: "ACTA DE INGRESO-#= value #" },
             { field: "name", title: "Proveedor", filterable: { search: true } },
             { field: "date", title: "Fecha de ingreso", filterable: { search: true },  format: "{0:dd/MM/yyyy}" },
             {field: "reference", title: "Referencía"},
             { field: "price", title: "Costo Unitario", filterable: { search: true }, format:"{0:c2}" },
             { field: "total", title: "Costo Total", filterable: { search: true },footerTemplate: "Total: $#: data.total ? sum: 0 #", format:"{0:c2}" }],
-            
+            dataBound: function(e){
+                if (this.dataSource.group().length > 0) {
+                  console.log($(".k-grouping-row"));
+        
+                  for (var i = 0; i < $(".k-grouping-row").length; i++) {
+                   this.collapseGroup($(".k-grouping-row")[i]);
+                  }
+               
+            }
+              },
         editable: "inline"
     });
 });

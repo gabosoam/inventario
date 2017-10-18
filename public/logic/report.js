@@ -48,7 +48,7 @@
       },
      
 
-      group: [ { field: "description", dir: "desc" }, { field: "state", aggregates: [{ field: "state", aggregate: "count" }
+      group: [ { field: "description", dir: "asc" }, { field: "state", aggregates: [{ field: "state", aggregate: "count" }
     ] } ],  
       aggregate: [
         { field: "code", aggregate: "count" },

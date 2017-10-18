@@ -14,9 +14,29 @@ var types = [{
 
 
 
-
 kendo.culture("es-ES");
 $(document).ready(function () {
+
+    dataSourceCombo = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: "/provider/read",
+                dataType: "json"
+            }
+        }
+    });
+
+    function userNameComboBoxEditor(container, options) {
+        $('<input required data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoComboBox({
+                dataSource: dataSourceCombo,
+                dataTextField: "name",
+                dataValueField: "id",
+                filter: "contains",
+                minLength: 1
+            });
+    }
 
     dataSource = new kendo.data.DataSource({
         transport: {
@@ -90,7 +110,7 @@ $(document).ready(function () {
                 },
                 columns: [
                     { field: "id", title: "Código", filterable: { search: true } },
-                    { field: "provider", values: providers, title: "Proveedor", filterable: { search: true } },
+                    { field: "provider",values: providers,editor: userNameComboBoxEditor , title: "Proveedor", filterable: { search: true } },
                     { field: "date", title: "Fecha", filterable: { search: true, search: true }, format: "{0:dd/MM/yyyy}" },
                     { field: "type", values: types, title: "Tipo documento", filterable: { multi: true, search: true, search: true } },
                     { field: "reference", title: "Referencia", filterable: { search: true, search: true } },
