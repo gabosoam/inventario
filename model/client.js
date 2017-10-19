@@ -15,7 +15,7 @@ module.exports = {
     },
 
     read2: function (callback) {
-        connection.query('SELECT  * FROM v_client;', function (error, results, fields) {
+        connection.query('SELECT  * FROM v_client ORDER BY text;', function (error, results, fields) {
             if (error) {
 
                 callback('error en la consulta: ' + error, null);

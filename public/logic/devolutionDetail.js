@@ -37,7 +37,8 @@ $('#code2').keypress(function (e) {
             var data = {
                 serie: $(this).val(),
                 voucher: $('#voucher').val(),
-                observation: $('#observation').val()
+                observation: $('#observation').val(),
+                location: $('#location').val()
             }
             var r = confirm("Está seguro de registrar el retiro del producto con número de serie " + $('#code2').val() + "?");
             if (r) {

@@ -11,6 +11,29 @@ var types = [{
 kendo.culture("es-ES");
 $(document).ready(function () {
 
+
+    dataSourceCombo = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: "/client/read",
+                dataType: "json"
+            }
+        }
+    });
+
+    function userNameComboBoxEditor(container, options) {
+        $('<input required data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoComboBox({
+                dataSource: dataSourceCombo,
+                dataTextField: "name",
+                dataValueField: "id",
+                filter: "contains",
+                minLength: 1
+            });
+    }
+
+
     dataSource = new kendo.data.DataSource({
         transport: {
             read: { url: "/devolution/", type: "GET", dataType: "json" },
@@ -31,6 +54,7 @@ $(document).ready(function () {
             model: {
                 id: "id",
                 fields: {
+                    id: {editable: false},
                     client: { validation: { required: true, }, type: 'number' },
                     date: { validation: { type: 'date' },type:'date', },
                     reference: { type: 'string' },
@@ -53,7 +77,8 @@ $(document).ready(function () {
                 pageable: { refresh: true, pageSizes: true, },
                 toolbar: ['create', 'excel'],
                 columns: [
-                    { field: "client", values: clients, title: "Cliente" },
+                    {field: 'id', title: 'Dev.'},
+                    { field: "client", values: clients,editor: userNameComboBoxEditor, title: "Cliente" },
                     { field: "date", title: "Fecha",  format: "{0:dd/MM/yyyy}" },
                     { field: "reference", title: "Referencia", filterable: { search: true } },
                     { field: "user", values: users, title: "Creado por" },

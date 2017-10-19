@@ -45,13 +45,21 @@
                             IN+
                         </div>
                     </li>
-                    <li><a href="/"><i class="fa fa-home"></i> <span class="nav-label">Inicio</span></a></li>
-                    <li><a href="/bill"><i class="fa fa-home"></i> <span class="nav-label">Ingresos</span></a></li>
-                    <li><a href="/vouchers"><i class="fa fa-arrow-left"></i> <span class="nav-label">Actas de entrega</span></a></li>
-                    <li class="active"><a href="/devolutions"><i class="fa fa-arrow-left"></i> <span class="nav-label">Actas de retiro</span></a></li>
-                    <li><a href="/model"><i class="fa fa-home"></i> <span class="nav-label">Productos</span></a></li>
-                    <li><a href="/client"><i class="fa fa-home"></i> <span class="nav-label">Clientes</span></a></li>
-                    <li><a href="/provider"><i class="fa fa-home"></i> <span class="nav-label">Proveedores</span></a></li>
+                    <li><a href="/"><i class="fa fa-home"></i> <span class="nav-label">Existencias</span></a></li>
+                    <li>
+                        <a href="/bill"><i class="fa fa-arrow-right"></i> <span class="nav-label">Ingresos</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="/bill">Ingreso normal</a></li>
+                            <li><a href="/lotes">Ingreso por lotes</a></li>
+              
+                        </ul>
+                    </li>
+                    <li><a href="/vouchers"><i class="fa fa-arrow-left"></i> <span class="nav-label">Egresos</span></a></li>
+                    <li class="active"><a href="/devolutions"><i class="fa fa-arrow-left"></i> <span class="nav-label">Devoluciones</span></a></li>
+                    <li><a href="/model"><i class="fa fa-cube"></i> <span class="nav-label">Códigos</span></a></li>
+                    <li><a href="/client"><i class="fa fa-address-book"></i> <span class="nav-label">Clientes</span></a></li>
+                    <li><a href="/provider"><i class="fa fa-truck"></i> <span class="nav-label">Proveedores</span></a></li>
+
 
 
                 </ul>
@@ -144,12 +152,21 @@
                                             </div>
                                             <div class="col-md-3" id="formSave">
                                                 <div class="form-group">
-                                                    <label for="code">Número de serie:</label>
-                                                    <input autofocus type="text" class="form-control" required id="code2" name="code" style="width: 100%" placeholder="Ingresar número de serie">
-                                                    <br><label for="code">Obervación: (opcional)</label>
+
+                                                    <label for="code">Obervación: (opcional)</label>
                                                     <textarea autofocus style="resize: none" class="form-control" name="observation" id="observation" rows="2" placeholder="Ingrese una observación"></textarea><br>
 
+                                                 
+                                                        <div class="form-group">
+                                                            <label for="pwd">Almacén:</label>
+                                                            <input type="text" class="form-control" validationMessage="Selecciona un almacén" name="location" required id="location"
+                                                                style="width: 100%">
+                                                        </div>
 
+                                                        <label for="code">Número de serie:</label>
+                                                        <input autofocus type="text" class="form-control" required id="code2" name="code" style="width: 100%" placeholder="Ingresar número de serie">
+
+                                                
                                                     <input id="voucher" type="hidden" value="<%=bill%>">
                                                 </div>
                                             </div>
@@ -223,7 +240,7 @@
                                     </center>
                                 </td>
                                 <td style="text-align: right">
-                                    <h5>RET-
+                                    <h5>DEV-
                                         <%=data.id%>
                                     </h5>
                                 </td>

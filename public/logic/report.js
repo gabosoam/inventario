@@ -54,7 +54,7 @@
         { field: "code", aggregate: "count" },
         { field: "category", aggregate: "count" },
         { field: "state", aggregate: "count" }],
-      pageSize: 1000
+      pageSize: 10000
     }
     );
 
@@ -87,7 +87,7 @@
           field: "code", aggregates: ["count"], title: "Código",
           groupHeaderTemplate: "Código: #= value # (#= count#)", filterable: { multi: true, search: true, search: true }
         },
-        { field: "description", title: "Producto", filterable: { multi: true, search: true, search: true } },
+        { field: "description", title: "Producto", filterable: { multi: true, search: true, search: true }, hidden: true },
         {
           field: "category", aggregates: ["count"], title: "Categoría",
           groupHeaderTemplate: "Categoría: #= value # (Cantidad: #= count#)", filterable: { multi: true, search: true, search: true }
@@ -95,8 +95,9 @@
         { field: "brand", title: "Marca", filterable: { multi: true, search: true } },
         { field: "date", title: "F. Ingreso", filterable: { search: true, search: true }, format: "{0:dd/MM/yyyy}" },
         { field: "reference", title: "Referencia", filterable: { search: true, search: true } },
-        { field: "state", aggregates: ["count"], title: "Estado", filterable: { multi: true, search: true, search: true },
+        { field: "state", hidden:true, aggregates: ["count"], title: "Estado", filterable: { multi: true, search: true, search: true },
         groupHeaderTemplate: " #= value # (Cantidad: #= count#)" },
+        {field: 'client', title:'Entregado a'},
         { field: "location", title: "Ubicación", filterable: { multi: true, search: true } },
         { field: "observation", title: "Observación", filterable: false }],
       dataBound: function(e){
@@ -110,28 +111,5 @@
     }
       }
     });
-    function showDetails(e) {
-      e.preventDefault();
-      var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-
-      switch (dataItem.state) {
-        case 1:
-          alert('No se puede reservar un producto entregado');
-          break;
-        case 2:
-          alert('El producto ya se encuentra reservado');
-          break;
-        default:
-          var confirmation =
-            confirm("¿Está seguro que desea reservar el producto con número de serie: " + dataItem.barcode + "?");
-          if (confirmation) {
-            alert('El producto con número de serie: ' + dataItem.barcode + " ha sido reservado");
-          } else {
-
-          }
-          break;
-      }
-
-
-    }
+  
   });

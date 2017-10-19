@@ -177,7 +177,7 @@ function chargeData() {
     }, 15000);
 
     setTimeout(function () {
-        $.post("/lotes/barcode/", { aux: barcode }, function (data) {
+        $.post("/lotes/barcode/", { aux: barcode.unique() }, function (data) {
 
         });
 

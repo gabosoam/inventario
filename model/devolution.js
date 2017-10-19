@@ -3,7 +3,7 @@ var connection = require('../config/connection.js');
 
 module.exports = {
   read: function (callback) {
-    connection.query('SELECT  * FROM devolution', function (error, results, fields) {
+    connection.query('SELECT  * FROM devolution ORDER BY id DESC', function (error, results, fields) {
       if (error) {
         callback('error en la consulta: ' + error, null);
       } else {

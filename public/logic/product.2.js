@@ -114,8 +114,8 @@ $(document).ready(function () {
             { field: "barcode", aggregates: ["count"], title: "No. de serie", filterable: { search: true }, width: '20%' },
             { field: "code", title: "Código", filterable: { search: true } },
             { field: "description", title: "Producto", filterable: { search: true } },
-            { field: "location", title: "Almacén", width: '100px' },
-            { field: "price", title: "Precio", width: '100px' },
+            { field: "location", title: "Almacén" },
+            { field: "observation", title: "Observación" },
             { field: "bill", title: "Factura", width: '1px' }],
         editable: "inline"
     })

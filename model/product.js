@@ -96,7 +96,7 @@ module.exports = {
                 callback(er, null);
             } else {
                 if (re.length == 0) {
-                    connection.query('INSERT INTO product (barcode,variant, location, bill, price, observation) VALUES (?,?,?,?,?,?)', [datos.barcode.toUpperCase(), datos.code, datos.location, datos.bill, datos.price, datos.observation.toUpperCase()], function (error, results, fields) {
+                    connection.query('INSERT INTO product (barcode,variant, location, bill, observation) VALUES (?,?,?,?,?)', [datos.barcode.toUpperCase(), datos.code, datos.location, datos.bill, datos.observation.toUpperCase()], function (error, results, fields) {
                         if (error) {
 
                             callback(error, null)

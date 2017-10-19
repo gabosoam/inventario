@@ -32,15 +32,16 @@ $(document).ready(function () {
             }
         },
         batch: true,
-        pageSize: 10,
+        pageSize: 100,
         serverFiltering: false,
         schema: {
             model: {
                 id: "id",
                 fields: {
-                    client: { validation: { required: true, }, type: 'number' },
-                    date: { validation: { type: 'date' },type:'date', },
-                    reference: { type: 'string' },
+                    id: {editable: false},
+                    client: { validation: { required: true, }, type: 'number', editable:false },
+                    date: { validation: { type: 'date' },type:'date', editable: false },
+                    reference: { type: 'string', editable: false },
                     user: { type: 'string', defaultValue: user, editable: false, visible: false },
                     state: { type: 'string' }
                 }
@@ -61,6 +62,7 @@ $(document).ready(function () {
                 pageable: { refresh: true, pageSizes: true, },
                 toolbar: ['excel'],
                 columns: [
+                    {field: 'id', title: 'FOPN'},
                     { field: "client", values: clients, title: "Cliente" },
                     { field: "date", title: "Fecha",  format: "{0:dd/MM/yyyy}" },
                     { field: "reference", title: "Referencia", filterable: { search: true } },

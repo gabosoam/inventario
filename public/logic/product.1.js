@@ -13,7 +13,7 @@ function generateBarcode() {
     $.get("/generateBarcode", function (data) {
 
         $('#barcode').val(data[0].barcode);
-        console.log(data);
+      
     });
 }
 
@@ -111,9 +111,11 @@ function save() {
     var data = $('#formsave').serialize();
     var data2 = $('#formsave').serializeArray();
 
-    console.log(data2[5].value);
+    console.log(data);
 
-    if (data2[5].value == 'S/N') {
+ 
+
+    if (data2[4].value == 'S/N') {
         var x = prompt("Ingresar la cantidad ", "1");
         var cant = parseInt(x);
         data2.push({ name: "cant", value: cant });
@@ -134,7 +136,7 @@ function save() {
 
 
     } else {
-        var confirmation = confirm('Está seguro de guardar el número de serie: ' + data2[5].value);
+        var confirmation = confirm('Está seguro de guardar el número de serie: ' + data2[4].value);
 
         if (confirmation) {
             $.post("/product/create", data, function (info) {
@@ -357,7 +359,6 @@ $(document).ready(function () {
                     barcode: { validation: { required: true }, type: 'string', editable: false },
                     description: { validation: { required: true, }, type: 'string', editable: false },
                     bill: { type: 'string', defaultValue: bill, editable: false, visible: false },
-                    price: { type: 'number' },
                     code: { editable: false }
                 }
             }
@@ -411,8 +412,7 @@ $(document).ready(function () {
             { field: "barcode", aggregates: ["count"], title: "No. de serie", filterable: { search: true }, width: '20%' },
             { field: "code", title: "Código", filterable: { search: true }, width: '15%' },
             { field: "description", title: "Producto", filterable: { search: true } },
-            { field: "location", title: "Almacén", width: '100px' },
-            { field: "price", title: "Precio", width: '100px' },
+            { field: "location", title: "Almacén" },
             { field: "bill", title: "Factura", width: '1px' },
             { command: ["edit", "destroy"], title: "Acciones" }],
         editable: "inline"

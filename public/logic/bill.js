@@ -9,6 +9,9 @@ var types = [{
 }, {
     "value": 3,
     "text": "GUÍA DE REMISIÓN"
+}, {
+    "value": 4,
+    "text": "OTRO"
 }];
 
 
@@ -52,7 +55,7 @@ $(document).ready(function () {
             }
         },
         batch: true,
-        pageSize: 10,
+        pageSize: 1000,
         serverFiltering: false,
         schema: {
             model: {

@@ -123,7 +123,7 @@ module.exports = {
                                 callback('Existio un error', null)
                               } else {
                                
-                                connection.query("UPDATE `product` SET `state`='0' WHERE (`id`=?)", [results[0].id], function (er, re, fi) {
+                                connection.query("UPDATE `product` SET `state`='0', location=? WHERE (`id`=?)", [data.location,results[0].id], function (er, re, fi) {
                                   if (er) {
                                 
                                     callback(er, null);
