@@ -1,6 +1,4 @@
 var connection = require('../config/connection.js');
-
-
 module.exports = {
 
     read: function (callback) {

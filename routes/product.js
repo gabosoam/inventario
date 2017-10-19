@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var product = require('../model/product');
+var event = require('../model/event');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res, next) {
@@ -41,15 +42,27 @@ router.get('/readprice', function (req, res, next) {
   });
 })
 
-router.post('/updateprice', function (req, res, next) {
-  var data = req.body;
-  product.updateprice(data, function (err, data) {
+router.post('/updateprice',isLoggedInAdmin, function (req, res, next) {
+  var datos = req.body;
+  product.updateprice(datos, function (err, data) {
     if (err) {
       console.log(err);
       res.sendStatus(500);
     } else {
       console.log(data);
       if (data.affectedRows > 0) {
+
+        var changes = {
+          table: 'PRODUCT',
+          values: JSON.stringify(datos),
+          user: req.session.adminDatos.name,
+          ip: req.ip,
+          type: 'UPDATE'
+        };
+
+        event.create(changes, function (result) {
+          console.log(result);
+        });
         res.send(true);
       } else {
         res.sendStatus(500);
@@ -68,6 +81,19 @@ router.post('/create', isLoggedIn, function (req, res, next) {
     if (error) {
       res.send(error);
     } else {
+
+      var changes = {
+        table: 'PRODUCT',
+        values: JSON.stringify(datos),
+        user: req.session.usuarioDatos.name,
+        ip: req.ip,
+        type: 'INSERT'
+      };
+
+      event.create(changes, function (result) {
+        console.log(result);
+      });
+      
       res.send(data);
     }
   })
@@ -88,12 +114,24 @@ router.post('/createserial', isLoggedIn, function (req, res, next) {
 });
 
 router.post('/delete', isLoggedIn, function (req, res, next) {
-  var data = req.body;
+  var datos = req.body;
 
-  product.delete(data, function (error, data) {
+  product.delete(datos, function (error, data) {
     if (error) {
       res.sendStatus(500);
     } else {
+
+      var changes = {
+        table: 'PRODUCT',
+        values: JSON.stringify(datos),
+        user: req.session.usuarioDatos.name,
+        ip: req.ip,
+        type: 'DELETE'
+      };
+
+      event.create(changes, function (result) {
+        console.log(result);
+      });
       res.send(true);
     }
   })

@@ -58,6 +58,33 @@
     }
     );
 
+
+    dataSourceEvent = new kendo.data.DataSource({
+      transport: {
+        read: { url: "/event", dataType: "json" }
+      },
+      batch: true,
+      pageSize: 10,
+      serverFiltering: false,
+      schema: {
+        model: {
+          id: "id",
+          fields: {
+            code: { type: "string" },
+            date: { type: 'date', editable: false },
+            state: { type: 'state', editable: false }
+          }
+        }
+      },
+     
+      pageSize: 10000
+    }
+    );
+
+
+
+
+
     $("#grid").kendoGrid({
       dataSource: dataSource,
       height: 600,
@@ -110,6 +137,30 @@
        
     }
       }
+    });
+
+
+
+    $("#grid2").kendoGrid({
+      dataSource: dataSourceEvent,
+      toolbar: ['excel'],
+     
+      scrollable: true,
+      columnMenu: true,
+      filterable: true,
+      resizable: true,
+      groupable: true,
+       
+      pageable: { refresh: true },
+      columns: [
+        { field: "table", title: "Tabla afectada", filterable: { search: true, multi: true } },
+        { field: "values", title: "Valores", filterable: { search: true } },
+        { field: "user", title: "Usuario", filterable: { search: true, multi: true, } },
+        { field: "date", title: "Fecha", filterable: { search: true },  format: "{0:dd/MM/yyyy HH:mm:ss}"  },
+        { field: "ip", title: "IP Origen", filterable: {multi: true, search: true } },
+        { field: "type", title: "Tipo", filterable: { search: true,multi: true } },
+      ],
+  
     });
   
   });

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../model/model');
+var event = require('../model/event');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res, next) {
@@ -47,16 +48,28 @@ router.get('/read2', function (req, res, next) {
   })
 });
 
-router.post('/update', function (req,res,next) {
+router.post('/update',isLoggedIn, function (req,res,next) {
  
-   var datos= req.body;
-   model.update(datos,function(error, datos){
+   var data= req.body;
+   model.update(data,function(error, datos){
     if (error) {
    
       res.sendStatus(500);
     } else {
 
       if (datos.affectedRows>0) {
+
+        var changes = {
+          table: 'MODEL',
+          values: JSON.stringify(data),
+          user: req.session.usuarioDatos.name,
+          ip: req.ip,
+          type: 'UPDATE'
+        };
+
+        event.create(changes, function (result) {
+          console.log(result);
+        });
            res.send(true);
       } else {
             res.sendStatus(500);
@@ -66,8 +79,8 @@ router.post('/update', function (req,res,next) {
 })
 
 router.post('/delete', function (req,res,next) {
-   var datos= req.body;
-   model.delete(datos,function(error, datos){
+   var data= req.body;
+   model.delete(data,function(error, datos){
     if (error) {
      
 
@@ -75,6 +88,17 @@ router.post('/delete', function (req,res,next) {
     } else {
 
       if (datos.affectedRows>0) {
+        var changes = {
+          table: 'MODEL',
+          values: JSON.stringify(data),
+          user: req.session.usuarioDatos.name,
+          ip: req.ip,
+          type: 'DELETE'
+        };
+
+        event.create(changes, function (result) {
+          console.log(result);
+        });
            res.send(true);
       } else {
             res.sendStatus(500);
@@ -86,14 +110,25 @@ router.post('/delete', function (req,res,next) {
 
 router.post('/create', function (req,res,next) {
 
-   var datos= req.body;
-   model.create(datos,function(error, datos){
+   var data= req.body;
+   model.create(data,function(error, datos){
     if (error) {
    
       res.sendStatus(500);
     } else {
 
       if (datos.affectedRows>0) {
+        var changes = {
+          table: 'MODEL',
+          values: JSON.stringify(data),
+          user: req.session.usuarioDatos.name,
+          ip: req.ip,
+          type: 'INSERT'
+        };
+
+        event.create(changes, function (result) {
+          console.log(result);
+        });
            res.send(true);
       } else {
             res.sendStatus(500);

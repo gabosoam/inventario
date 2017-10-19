@@ -62,7 +62,7 @@ module.exports = {
     });
   },
   delete: function (datos, callback) {
-    connection.query('DELETE FROM voucher WHERE id=?', [datos.id], function (error, results, fields) {
+    connection.query('DELETE FROM devolution WHERE id=?', [datos.id], function (error, results, fields) {
       if (error) {
         callback('error en la consulta: ' + error, null);
       } else {

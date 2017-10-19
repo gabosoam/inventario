@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bill = require('../model/bill');
 var product = require('../model/product');
+var event = require('../model/event');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res, next) {
@@ -86,14 +87,26 @@ router.post('/read2', function (req, res, next) {
 });
 
 router.post('/update', isLoggedIn, function (req, res, next) {
-  var datos = req.body;
-  bill.update(datos, function (error, datos) {
+  var data = req.body;
+  bill.update(data, function (error, datos) {
     if (error) {
 
       res.sendStatus(500);
     } else {
 
       if (datos.affectedRows > 0) {
+
+        var changes = {
+          table: 'BILL',
+          values: JSON.stringify(data),
+          user: req.session.usuarioDatos.name,
+          ip: req.ip,
+          type: 'UPDATE'
+        };
+
+        event.create(changes, function (result) {
+          console.log(result);
+        });
         res.send(true);
       } else {
         res.sendStatus(500);
@@ -110,6 +123,18 @@ router.post('/updateAdmin', isLoggedInAdmin, function (req, res, next) {
       res.sendStatus(500);
     } else {
 
+      var changes = {
+        table: 'BILL',
+        values: JSON.stringify(data),
+        user: req.session.adminDatos.name,
+        ip: req.ip,
+        type: 'UPDATE'
+      };
+
+      event.create(changes, function (result) {
+        console.log(result);
+      });
+
       if (datos.affectedRows > 0) {
         res.send(true);
       } else {
@@ -119,15 +144,26 @@ router.post('/updateAdmin', isLoggedInAdmin, function (req, res, next) {
   })
 })
 
-router.post('/delete', function (req, res, next) {
-  var datos = req.body;
-  bill.delete(datos, function (error, datos) {
+router.post('/delete',isLoggedIn, function (req, res, next) {
+  var data = req.body;
+  bill.delete(data, function (error, datos) {
     if (error) {
 
       res.sendStatus(500);
     } else {
 
       if (datos.affectedRows > 0) {
+        var changes = {
+          table: 'BILL',
+          values: JSON.stringify(data),
+          user: req.session.usuarioDatos.name,
+          ip: req.ip,
+          type: 'DELETE'
+        };
+  
+        event.create(changes, function (result) {
+          console.log(result);
+        });
         res.send(true);
       } else {
         res.sendStatus(500);
@@ -137,15 +173,27 @@ router.post('/delete', function (req, res, next) {
 })
 
 
-router.post('/create', function (req, res, next) {
+router.post('/create',isLoggedIn, function (req, res, next) {
 
-  var datos = req.body;
-  bill.create(datos, function (error, datos) {
+  var data = req.body;
+  bill.create(data, function (error, datos) {
     if (error) {
       console.log(error);
 
       res.sendStatus(500);
     } else {
+
+      var changes = {
+        table: 'BILL',
+        values: JSON.stringify(data),
+        user: req.session.usuarioDatos.name,
+        ip: req.ip,
+        type: 'INSERT'
+      };
+
+      event.create(changes, function (result) {
+        console.log(result);
+      });
 
       if (datos.affectedRows > 0) {
         res.send(true);

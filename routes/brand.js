@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var brand = require('../model/brand');
-const EventEmitter = require('events');
+var event = require('../model/event');
 
 
 
@@ -24,15 +24,25 @@ router.get('/read', function (req, res, next) {
   })
 });
 
-router.post('/update', function (req,res,next) {
-   var datos= req.body;
-   brand.update(datos,function(error, datos){
+router.post('/update',isLoggedIn, function (req,res,next) {
+   var data= req.body;
+   brand.update(data,function(error, datos){
     if (error) {
- 
       res.sendStatus(500);
     } else {
 
       if (datos.affectedRows>0) {
+        var changes = {
+          table: 'BRAND',
+          values: JSON.stringify(data),
+          user: req.session.adminDatos.name,
+          ip: req.ip,
+          type: 'UPDATE'
+        };
+  
+        event.create(changes, function (result) {
+          console.log(result);
+        });
            res.send(true);
       } else {
             res.sendStatus(500);
@@ -41,15 +51,26 @@ router.post('/update', function (req,res,next) {
   })
 })
 
-router.post('/delete', function (req,res,next) {
-   var datos= req.body;
-   brand.delete(datos,function(error, datos){
+router.post('/delete', isLoggedIn, function (req,res,next) {
+   var data= req.body;
+   brand.delete(data,function(error, datos){
     if (error) {
   
       res.sendStatus(500);
     } else {
 
       if (datos.affectedRows>0) {
+        var changes = {
+          table: 'BRAND',
+          values: JSON.stringify(data),
+          user: req.session.adminDatos.name,
+          ip: req.ip,
+          type: 'DELETE'
+        };
+  
+        event.create(changes, function (result) {
+          console.log(result);
+        });
            res.send(true);
       } else {
             res.sendStatus(500);
@@ -60,14 +81,25 @@ router.post('/delete', function (req,res,next) {
 
 
 router.post('/create', function (req,res,next) {
-   var datos= req.body;
-   brand.create(datos,function(error, datos){
+   var data= req.body;
+   brand.create(data,function(error, datos){
     if (error) {
     
       res.sendStatus(500);
     } else {
 
       if (datos.affectedRows>0) {
+        var changes = {
+          table: 'BRAND',
+          values: JSON.stringify(data),
+          user: req.session.adminDatos.name,
+          ip: req.ip,
+          type: 'CREATE'
+        };
+  
+        event.create(changes, function (result) {
+          console.log(result);
+        });
            res.send(true);
       } else {
             res.sendStatus(500);

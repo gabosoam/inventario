@@ -4,6 +4,7 @@ var product = require('../model/product');
 var cosa = require('../app');
 var index = require('../model/index');
 var lotes = require('../model/lotes');
+var event = require('../model/event');
 
 
 //cosa.myEmitter.emit('event');
@@ -11,6 +12,20 @@ var lotes = require('../model/lotes');
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res, next) {
 	res.render('index', { user: sess.usuarioDatos });
+});
+
+router.get('/events', isLoggedInAdmin, function (req, res, next) {
+	res.render('event', { user: sess.adminDatos });
+});
+
+router.get('/event', isLoggedInAdmin, function (req, res, next) {
+	event.read(function(err, result) {
+		if (err) {
+			res.send(err);
+		} else {
+			res.send(result);
+		}
+	});
 });
 
 
@@ -55,23 +70,23 @@ router.post('/lotes/category', isLoggedIn, function (req, res, next) {
 router.post('/lotes/model', isLoggedIn, function (req, res, next) {
 	var data = req.body;
 	var values = data['aux[]'];
-	
+
 	lotes.insertModels(values, function (mensaje) {
 		res.send(mensaje);
 	})
-	
+
 
 });
 
 router.post('/lotes/barcode', isLoggedIn, function (req, res, next) {
 	var data = req.body;
 	var values = data['aux[]'];
-	
+
 	lotes.insertBarcode(values, function (mensaje) {
 		console.log(mensaje);
 		res.send(mensaje);
 	})
-	
+
 
 });
 

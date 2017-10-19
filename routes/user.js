@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var user = require('../model/user');
 var prueba = require('../routes/users');
+var event = require('../model/event');
 
 /* GET home page. */
 router.get('/', isLoggedInAdmin, function (req, res, next) {
@@ -17,6 +18,8 @@ router.get('/admin', isLoggedInAdmin, function (req, res, next) {
   res.render('user', { user: sess.adminDatos });
 
 });
+
+
 
 
 router.get('/read', function (req, res, next) {
@@ -39,14 +42,25 @@ router.get('/read2', function (req, res, next) {
   })
 });
 
-router.post('/update', function (req, res, next) {
-  var datos = req.body;
-  user.update(datos, function (error, datos) {
+router.post('/update', isLoggedInAdmin, function (req, res, next) {
+  var data = req.body;
+  user.update(data, function (error, datos) {
     if (error) {
       res.sendStatus(500);
     } else {
 
       if (datos.affectedRows > 0) {
+        var changes = {
+          table: 'USER',
+          values: JSON.stringify(data),
+          user: req.session.adminDatos.name,
+          ip: req.ip,
+          type: 'UPDATE'
+        };
+  
+        event.create(changes, function (result) {
+          console.log(result);
+        });
         res.send(true);
       } else {
         res.sendStatus(500);
@@ -69,15 +83,26 @@ router.post('/editPassword', function (req, res, next) {
   })
 })
 
-router.post('/delete', function (req, res, next) {
-  var datos = req.body;
-  user.delete(datos, function (error, datos) {
+router.post('/delete',isLoggedInAdmin, function (req, res, next) {
+  var data = req.body;
+  user.delete(data, function (error, datos) {
     if (error) {
 
       res.sendStatus(500);
     } else {
 
       if (datos.affectedRows > 0) {
+        var changes = {
+          table: 'USER',
+          values: JSON.stringify(data),
+          user: req.session.adminDatos.name,
+          ip: req.ip,
+          type: 'DELETE'
+        };
+  
+        event.create(changes, function (result) {
+          console.log(result);
+        });
         res.send(true);
       } else {
         res.sendStatus(500);
@@ -87,16 +112,26 @@ router.post('/delete', function (req, res, next) {
 })
 
 
-router.post('/create', function (req, res, next) {
-  var datos = req.body;
-  user.create(datos, function (error, datos) {
+router.post('/create',isLoggedInAdmin, function (req, res, next) {
+  var data = req.body;
+  user.create(data, function (error, datos) {
     if (error) {
 
       res.sendStatus(500);
     } else {
 
       if (datos.affectedRows > 0) {
-
+        var changes = {
+          table: 'USER',
+          values: JSON.stringify(data),
+          user: req.session.adminDatos.name,
+          ip: req.ip,
+          type: 'INSERT'
+        };
+  
+        event.create(changes, function (result) {
+          console.log(result);
+        });
         res.send(true);
       } else {
         res.sendStatus(500);
@@ -112,6 +147,17 @@ router.post('/login', function (req, res, next) {
     if (err) {
       res.render('login', { message: err })
     } else {
+
+      var changes = {
+        table: 'LOGIN',
+        user: dates.name,
+        ip: req.ip,
+        type: 'LOGIN'
+      };
+
+      event.create(changes, function (result) {
+        console.log(result);
+      });
 
       if (dates.rol == 1) {
         sess.usuarioDatos = dates;

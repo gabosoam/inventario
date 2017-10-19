@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var voucher = require('../model/voucher');
+var event = require('../model/event');
 
 
 router.get('/:voucher', isLoggedIn, function (req, res, next) {
@@ -24,16 +25,27 @@ router.get('/', function (req, res, next) {
   });
 });
 
-router.post('/create', function (req, res, next) {
+router.post('/create',isLoggedIn, function (req, res, next) {
 
-    var datos = req.body;
-    voucher.create(datos, function (error, datos) {
+    var data = req.body;
+    voucher.create(data, function (error, datos) {
       if (error) {
 
         res.sendStatus(500);
       } else {
 
         if (datos.affectedRows > 0) {
+          var changes = {
+            table: 'VOUCHER',
+            values: JSON.stringify(data),
+            user: req.session.usuarioDatos.name,
+            ip: req.ip,
+            type: 'INSERT'
+          };
+  
+          event.create(changes, function (result) {
+            console.log(result);
+          });
           res.send(true);
         } else {
           res.sendStatus(500);
@@ -54,10 +66,21 @@ router.post('/create', function (req, res, next) {
 
   router.post('/delete',isLoggedIn, function (req, res, next) {
     var data = req.body;
-    voucher.delete(data, function (error, data) {
+    voucher.delete(data, function (error, datos) {
       if (error) {
         res.sendStatus(500);
       } else {
+        var changes = {
+          table: 'VOUCHER',
+          values: JSON.stringify(data),
+          user: req.session.usuarioDatos.name,
+          ip: req.ip,
+          type: 'DELETE'
+        };
+
+        event.create(changes, function (result) {
+          console.log(result);
+        });
         res.send(true);
       }
     })
@@ -75,14 +98,25 @@ router.post('/create', function (req, res, next) {
   });
 
   router.post('/update',isLoggedIn, function (req, res, next) {
-    var datos = req.body;
-    voucher.update(datos, function (error, data) {
+    var data = req.body;
+    voucher.update(data, function (error, datos) {
       if (error) {
 
         res.sendStatus(500);
       } else {
 
-        if (data.affectedRows > 0) {
+        if (datos.affectedRows > 0) {
+          var changes = {
+            table: 'VOUCHER',
+            values: JSON.stringify(data),
+            user: req.session.usuarioDatos.name,
+            ip: req.ip,
+            type: 'UPDATE'
+          };
+  
+          event.create(changes, function (result) {
+            console.log(result);
+          });
           res.send(true);
         } else {
           res.sendStatus(500);
@@ -100,6 +134,17 @@ router.post('/create', function (req, res, next) {
       } else {
 
         if (data.affectedRows > 0) {
+          var changes = {
+            table: 'VOUCHER',
+            values: JSON.stringify(datos),
+            user: req.session.adminDatos.name,
+            ip: req.ip,
+            type: 'UPDATE'
+          };
+  
+          event.create(changes, function (result) {
+            console.log(result);
+          });
           res.send(true);
         } else {
           res.sendStatus(500);

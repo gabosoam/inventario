@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var detail = require('../model/detail');
+var event = require('../model/event');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res, next) {
@@ -11,13 +12,24 @@ router.get('/', isLoggedIn, function (req, res, next) {
   }
 });
 
-router.post('/create', function (req, res, next) {
+router.post('/create', isLoggedIn,function (req, res, next) {
   var datos = req.body;
-  console.log(datos);
+ 
   detail.create(datos, function(err, data) {
     if (err) {
       res.send(err);
     } else {
+      var changes = {
+        table: 'DETAIL',
+        values: JSON.stringify(datos),
+        user: req.session.usuarioDatos.name,
+        ip: req.ip,
+        type: 'INSERT'
+      };
+
+      event.create(changes, function (result) {
+        console.log(result);
+      });
       res.send(data);
     }
   });
@@ -37,13 +49,23 @@ router.post('/createserial', function (req, res, next) {
 
 })
 
-router.post('/delete', function (req, res, next) {
+router.post('/delete',isLoggedIn, function (req, res, next) {
   var datos = req.body;
-  console.log(datos);
   detail.delete(datos, function(err, data) {
     if (err) {
       res.send(err);
     } else {
+      var changes = {
+        table: 'DETAIL',
+        values: JSON.stringify(datos),
+        user: req.session.usuarioDatos.name,
+        ip: req.ip,
+        type: 'DELETE'
+      };
+
+      event.create(changes, function (result) {
+        console.log(result);
+      });
       res.send(data);
     }
   });
