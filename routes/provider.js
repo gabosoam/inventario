@@ -31,7 +31,7 @@ router.post('/update',isLoggedIn, function (req,res,next) {
    var data= req.body;
    provider.update(data,function(error, datos){
     if (error) {
-
+      event.createError(error, req.session.usuarioDatos.name,'PROVIDER',function(message) {});
       res.sendStatus(500);
     } else {
 
@@ -59,7 +59,7 @@ router.post('/updateAdmin', isLoggedInAdmin, function (req,res,next) {
   var data= req.body;
   provider.update(data,function(error, datos){
    if (error) {
-
+    event.createError(error, req.session.adminDatos.name,'PROVIDER',function(message) {});
      res.sendStatus(500);
    } else {
 
@@ -87,7 +87,7 @@ router.post('/delete',isLoggedIn, function (req,res,next) {
    var data= req.body;
    provider.delete(data,function(error, datos){
     if (error) {
-    
+      event.createError(error, req.session.usuarioDatos.name,'PROVIDER',function(message) {});
       res.sendStatus(500);
     } else {
 
@@ -115,7 +115,7 @@ router.post('/deleteAdmin',isLoggedInAdmin, function (req,res,next) {
   var data= req.body;
   provider.delete(data,function(error, datos){
    if (error) {
-   
+    event.createError(error, req.session.adminDatos.name,'PROVIDER',function(message) {});
      res.sendStatus(500);
    } else {
 
@@ -145,7 +145,7 @@ router.post('/create',isLoggedIn, function (req,res,next) {
  
    provider.create(data,function(error, datos){
     if (error) {
-  
+      event.createError(error, req.session.usuarioDatos.name,'PROVIDER',function(message) {});
       res.sendStatus(500);
     } else {
 
@@ -174,7 +174,7 @@ router.post('/createAdmin',isLoggedInAdmin, function (req,res,next) {
 
   provider.create(data,function(error, datos){
    if (error) {
- 
+    event.createError(error, req.session.adminDatos.name,'PROVIDER',function(message) {});
      res.sendStatus(500);
    } else {
 

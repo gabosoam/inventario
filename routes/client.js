@@ -40,7 +40,7 @@ router.post('/update', function (req, res, next) {
   var datos = req.body;
   client.update(datos, function (error, data) {
     if (error) {
-
+      event.createError(error, req.session.usuarioDatos.name,'CLIENT',function(message) {});
       res.sendStatus(500);
     } else {
 
@@ -71,7 +71,7 @@ router.post('/updateAdmin', function (req, res, next) {
   var datos = req.body;
   client.update(datos, function (error, data) {
     if (error) {
-
+      event.createError(error, req.session.adminDatos.name,'CLIENT',function(message) {});
       res.sendStatus(500);
     } else {
 
@@ -101,8 +101,8 @@ router.post('/updateAdmin', function (req, res, next) {
 router.post('/delete',isLoggedIn, function (req, res, next) {
   var data = req.body;
   client.delete(data, function (error, datos) {
-    if (error) {
-
+    if (error) {  
+      event.createError(error, req.session.usuarioDatos.name,'CLIENT',function(message) {});
       res.sendStatus(500);
     } else {
 
@@ -131,7 +131,7 @@ router.post('/deleteAdmin', isLoggedInAdmin, function (req, res, next) {
   var data = req.body;
   client.delete(data, function (error, datos) {
     if (error) {
-
+      event.createError(error, req.session.adminDatos.name,'CLIENT',function(message) {});
       res.sendStatus(500);
     } else {
 
@@ -159,9 +159,10 @@ router.post('/deleteAdmin', isLoggedInAdmin, function (req, res, next) {
 
 router.post('/create', isLoggedIn, function (req, res, next) {
   var data = req.body;
+  
   client.create(data, function (error, datos) {
     if (error) {
-
+      event.createError(error, req.session.usuarioDatos.name,'CLIENT',function(message) {});
       res.status(500).send(error);
     } else {
 
@@ -187,9 +188,10 @@ router.post('/create', isLoggedIn, function (req, res, next) {
 
 router.post('/createAdmin', isLoggedInAdmin, function (req, res, next) {
   var data = req.body;
+  
   client.create(data, function (error, datos) {
     if (error) {
-
+      event.createError(error, req.session.adminDatos.name,'CLIENT',function(message) {});
       res.status(500).send(error);
     } else {
 

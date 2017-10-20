@@ -81,6 +81,26 @@
     }
     );
 
+    dataSourceError = new kendo.data.DataSource({
+      transport: {
+        read: { url: "/error", dataType: "json" }
+      },
+      batch: true,
+   
+      serverFiltering: false,
+      schema: {
+        model: {
+          id: "id",
+          fields: {
+            date: { type: 'date', editable: false }
+          }
+        }
+      },
+     
+      pageSize: 10
+    }
+    );
+
 
 
 
@@ -139,12 +159,32 @@
       }
     });
 
+    $("#grid3").kendoGrid({
+      dataSource: dataSourceError,
+      toolbar: ['excel'],
+      height: 600,
+      scrollable: true,
+      columnMenu: true,
+      filterable: true,
+      resizable: true,
+      groupable: true,
+       
+      pageable: { refresh: true },
+      columns: [
+        { field: "type", title: "Tipo", filterable: { search: true, multi: true } },
+        { field: "user", title: "Usuario", filterable: { search: true, multi: true, } },
+        { field: "date", title: "Fecha", filterable: { search: true },  format: "{0:dd/MM/yyyy HH:mm:ss}"  },
+        { field: "message", title: "Mensaje", filterable: {multi: true, search: true } },
+      ],
+  
+    });
+
 
 
     $("#grid2").kendoGrid({
       dataSource: dataSourceEvent,
       toolbar: ['excel'],
-     
+      height: 600,
       scrollable: true,
       columnMenu: true,
       filterable: true,
@@ -162,5 +202,12 @@
       ],
   
     });
+
+   
+
+    $('#panel').on('DOMSubtreeModified', function(event) {
+      $ ("#grid3"). data ("kendoGrid"). dataSource.read (); 
+  });
+   
   
   });

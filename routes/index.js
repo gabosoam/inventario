@@ -5,6 +5,7 @@ var cosa = require('../app');
 var index = require('../model/index');
 var lotes = require('../model/lotes');
 var event = require('../model/event');
+var mysqlDump = require('mysqldump');
 
 
 //cosa.myEmitter.emit('event');
@@ -15,11 +16,33 @@ router.get('/', isLoggedIn, function (req, res, next) {
 });
 
 router.get('/events', isLoggedInAdmin, function (req, res, next) {
+
+	mysqlDump({
+		host: 'localhost',
+		user: 'root',
+		password: '12345',
+		database: 'inventory',
+		port: 3307,
+		dest:'../inventory.sql', // destination file
+		dropTable : true
+	},function(err){
+		console.log(err);
+	})
 	res.render('event', { user: sess.adminDatos });
 });
 
 router.get('/event', isLoggedInAdmin, function (req, res, next) {
 	event.read(function(err, result) {
+		if (err) {
+			res.send(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
+router.get('/error', isLoggedInAdmin, function (req, res, next) {
+	event.readError(function(err, result) {
 		if (err) {
 			res.send(err);
 		} else {

@@ -7,7 +7,7 @@ module.exports = {
         connection.query('SELECT  * FROM provider;', function (error, results, fields) {
             if (error) {
 
-                callback('error en la consulta: ' + error, null);
+                callback(error, null);
             } else {
                 callback(null, results);
 
@@ -19,7 +19,7 @@ module.exports = {
         connection.query('SELECT  * FROM v_provider;', function (error, results, fields) {
             if (error) {
 
-                callback('error en la consulta: ' + error, null);
+                callback(error, null);
             } else {
                 callback(null, results);
 
@@ -30,7 +30,7 @@ module.exports = {
     update: function (datos, callback) {
         connection.query('UPDATE `provider` SET `dni`=?,`name`=?,`address`=?, `phone`=?, email=? WHERE (`id`=?) LIMIT 1', [datos.dni, datos.name.toUpperCase(), datos.address.toUpperCase(), datos.phone,datos.email, datos.id], function (error, results, fields) {//
             if (error) {
-                callback('error en la consulta: ' + error, null);
+                callback(error, null);
             } else {
 
 
@@ -44,7 +44,7 @@ module.exports = {
     delete: function (datos, callback) {
         connection.query('DELETE FROM provider WHERE id=?', [datos.id], function (error, results, fields) {//
             if (error) {
-                callback('error en la consulta: ' + error, null);
+                callback(error, null);
             } else {
                 callback(null, results);
             }
@@ -55,7 +55,7 @@ module.exports = {
     create: function (datos, callback) {
         connection.query('INSERT INTO provider(dni, name, address, phone,email) VALUES(?,?,?,?,?)', [datos.dni, datos.name.toUpperCase(), datos.address.toUpperCase(), datos.phone, datos.email], function (error, results, fields) {//
             if (error) {
-                callback('error en la consulta: ' + error, null);
+                callback(error, null);
             } else {
                 callback(null, results);
             }
