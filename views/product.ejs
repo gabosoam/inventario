@@ -63,7 +63,7 @@
                             IN+
                         </div>
                     </li>
-                   
+
 
                     <li><a href="/"><i class="fa fa-home"></i> <span class="nav-label">Inicio</span></a></li>
                     <li class="active">
@@ -71,7 +71,7 @@
                         <ul class="nav nav-second-level">
                             <li class="active"><a href="/bill">Ingreso normal</a></li>
                             <li><a href="/lotes">Ingreso por lotes</a></li>
-              
+
                         </ul>
                     </li>
                     <li><a href="/vouchers"><i class="fa fa-arrow-left"></i> <span class="nav-label">Egresos</span></a></li>
@@ -135,10 +135,13 @@
                             <div class="ibox-content">
 
                                 <div class="row">
-
+                                    <button onclick="openLotes()" class="btn btn-success float-right">Ingreso por lotes</button>
+                                    <button id="closeBill" class="btn btn-danger">Cerrar ingreso</button>
                                     <div class="col-md-12">
                                         <div id="busqueda" class="row">
+
                                             <br>
+
                                             <div class="col-md-3">
                                                 <table class="table">
                                                     <tr>
@@ -176,7 +179,7 @@
 
                                                 </table>
 
-                                                <button id="closeBill" class="btn btn-danger">Cerrar ingreso</button>
+
 
 
 
@@ -217,7 +220,7 @@
 
                                                         </div>
 
-                                                       
+
 
                                                         <div class="col-md-3">
                                                             <div class="form-group">
@@ -238,7 +241,7 @@
 
                                                         </div>
 
-                                                        
+
 
                                                         <div class="col-md-1">
                                                             <label for="pwd">&nbsp</label>
@@ -252,7 +255,7 @@
 
                                                 </div>
 
-                                                
+
 
 
                                             </div>
@@ -372,7 +375,7 @@
 
                         </table>
                         <hr>
-                        <table id="Voucher" class="table "  >
+                        <table id="Voucher" class="table ">
                             <thead style="font-size:13px;">
                                 <tr>
                                     <th style="text-align: center">Ítem</th>
@@ -409,23 +412,23 @@
 
                         <table style="width: 100%; border: 1; font-size: 12px ">
                             <tr>
-                                    <td>
-                                            <center>
-                                                <p>
-                                                    ENTREGADO POR
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br> _______________________________
-                                                    <br>
-                                                    <br>
-                                                    <input type="text" style="border: 0; width: 100%; text-align: center; text-transform: uppercase">
-                                                </p>
-                                            </center>
-        
-        
-                                        </td>
+                                <td>
+                                    <center>
+                                        <p>
+                                            ENTREGADO POR
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br> _______________________________
+                                            <br>
+                                            <br>
+                                            <input type="text" style="border: 0; width: 100%; text-align: center; text-transform: uppercase">
+                                        </p>
+                                    </center>
+
+
+                                </td>
 
                                 <td>
                                     <center>
@@ -446,27 +449,54 @@
                                 </td>
 
                                 <td>
-                                        <center>
-                                            <p>
-                                                RECIBIDO POR
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br> _______________________________
-                                                <br>
-                                                <br>
-                                                <input type="text" style="border: 0; width: 100%; text-align: center; text-transform: uppercase">
-                                            </p>
-                                        </center>
-    
-    
-                                    </td>
+                                    <center>
+                                        <p>
+                                            RECIBIDO POR
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br> _______________________________
+                                            <br>
+                                            <br>
+                                            <input type="text" style="border: 0; width: 100%; text-align: center; text-transform: uppercase">
+                                        </p>
+                                    </center>
+
+
+                                </td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModalLotes" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Ingreso por lotes</h4>
+                </div>
+                <div class="modal-body">
+                    <a class="btn btn-link" href="../PLANTILLA.csv"> Descargar plantilla</a><br><br>
+                    <form class="form-horizontal ">
+
+                        <fieldset>
+                            <label for="csvFileInput"> <strong>Seleccionar archivo CSV:</strong>
+                                                                                                                                                    </label>
+                            <input type="file" class="" id="csvFileInput" onchange="handleFiles(this.files)" accept=".csv"><br>
+                            <button type="button" class="btn btn-primary" onclick="chargeData()">Enviar datos</button>
+                            <!-- <i id="spinner" class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> -->
+
+                        </fieldset>
+                    </form>
+                    <div id="output" style="height: 150; background-color: white"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -558,8 +588,14 @@
     <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
     <script src="../js/w3.js"></script>
     <script src="../js/jquery.PrintArea.js"></script>
+    <script src="../js/datatables.min.js"></script>
+    <script src="../logic/lotes.js"></script>
 
     <script>
+        function openLotes() {
+            console.log('llegue');
+            $('#myModalLotes').modal();
+        }
         $.get("/bill/read/<%=bill%>", function (data) {
 
 

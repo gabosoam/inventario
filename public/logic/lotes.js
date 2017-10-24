@@ -104,6 +104,7 @@ function errorHandler(evt) {
 }
 
 function drawOutput(lines) {
+    
     //Clear previous data
     document.getElementById("output").innerHTML = "";
     var table = document.createElement("table");
@@ -117,6 +118,10 @@ function drawOutput(lines) {
 
     }
 
+    var item = document.createElement('th');
+    row.appendChild(item);
+    item.appendChild(document.createTextNode('Estado'));
+
 
 
 
@@ -127,11 +132,16 @@ function drawOutput(lines) {
             var firstNameCell = row.insertCell(-1);
             firstNameCell.appendChild(document.createTextNode(lines[i][j]));
         }
+        var firstNameCell = row.insertCell(-1);
+        firstNameCell.appendChild(document.createTextNode('Estado'));
     }
+
+
     table.className = 'table table-striped mitabla';
 
 
     document.getElementById("output").appendChild(table);
+    console.log(lines)
 
     change();
 }
@@ -152,6 +162,8 @@ function change() {
 
 
     });
+
+   
 }
 
 function chargeData() {
