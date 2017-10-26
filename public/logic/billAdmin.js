@@ -9,6 +9,9 @@ var types = [{
 }, {
     "value": 3,
     "text": "GUÍA DE REMISIÓN"
+},{
+    "value": 4,
+    "text": "OTRO"
 }];
 
 var states = [{

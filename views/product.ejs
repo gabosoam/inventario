@@ -65,20 +65,22 @@
                     </li>
 
 
-                    <li><a href="/"><i class="fa fa-home"></i> <span class="nav-label">Inicio</span></a></li>
+                    <li><a href="/"><i class="fa fa-home"></i> <span class="nav-label">Existencias</span></a></li>
                     <li class="active">
                         <a href="/bill"><i class="fa fa-arrow-right"></i> <span class="nav-label">Ingresos</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class="active"><a href="/bill">Ingreso normal</a></li>
                             <li><a href="/lotes">Ingreso por lotes</a></li>
-
+              
                         </ul>
                     </li>
                     <li><a href="/vouchers"><i class="fa fa-arrow-left"></i> <span class="nav-label">Egresos</span></a></li>
-                    <li><a href="/devolutions"><i class="fa fa-arrow-left"></i> <span class="nav-label">Retiros</span></a></li>
-                    <li><a href="/model"><i class="fa fa-cube"></i> <span class="nav-label">Productos</span></a></li>
+                    <li><a href="/devolutions"><i class="fa fa-arrow-left"></i> <span class="nav-label">Devoluciones</span></a></li>
+                    <li><a href="/model"><i class="fa fa-cube"></i> <span class="nav-label">Códigos</span></a></li>
                     <li><a href="/client"><i class="fa fa-address-book"></i> <span class="nav-label">Clientes</span></a></li>
                     <li><a href="/provider"><i class="fa fa-truck"></i> <span class="nav-label">Proveedores</span></a></li>
+
+
 
 
 
@@ -375,7 +377,7 @@
 
                         </table>
                         <hr>
-                        <table id="Voucher" class="table ">
+                        <table id="Vouchers" class="table ">
                             <thead style="font-size:13px;">
                                 <tr>
                                     <th style="text-align: center">Ítem</th>
@@ -387,7 +389,7 @@
                                 </tr>
                             </thead>
                             <tbody style="font-size:11px;">
-                                <tr w3-repeat="vouchers">
+                                <tr w3-repeat="voucherss">
                                     <td style="text-align: center">{{num}}</td>
                                     <td style="text-align: center">{{description}}</td>
                                     <td style="text-align: center">{{code}}</td>
@@ -488,12 +490,33 @@
                             <label for="csvFileInput"> <strong>Seleccionar archivo CSV:</strong>
                                                                                                                                                     </label>
                             <input type="file" class="" id="csvFileInput" onchange="handleFiles(this.files)" accept=".csv"><br>
-                            <button type="button" class="btn btn-primary" onclick="chargeData()">Enviar datos</button>
                             <!-- <i id="spinner" class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> -->
 
                         </fieldset>
                     </form>
-                    <div id="output" style="height: 150; background-color: white"></div>
+                   
+                </div>
+                <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab-1"> Productos</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-2">Nuevos código</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                            <div class="panel-body">
+                                    <button class="btn btn-primary" onclick="iniciar()">Iniciar ingreso</button>
+                                <div id="output2" style="height: 150; background-color: white"></div>
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tab-pane">
+                            <div class="panel-body">
+                                    <button class="btn btn-primary" onclick="change()">Cambiar</button>
+                                <div id="output" style="height: 150; background-color: white"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
 
@@ -589,17 +612,13 @@
     <script src="../js/w3.js"></script>
     <script src="../js/jquery.PrintArea.js"></script>
     <script src="../js/datatables.min.js"></script>
-    <script src="../logic/lotes.js"></script>
+   
 
     <script>
-        function openLotes() {
-            console.log('llegue');
-            $('#myModalLotes').modal();
-        }
-        $.get("/bill/read/<%=bill%>", function (data) {
+        $.get("/bill/read/<%=bill%>", function (data2) {
+            console.log($('#Vouchers'))
 
-
-            w3.displayObject("Voucher", { vouchers: data });
+            w3.displayObject("Vouchers", { voucherss: data2 });
 
         });
 
@@ -607,6 +626,11 @@
             $('#print').printArea();
 
         }
+        function openLotes() {
+     
+            $('#myModalLotes').modal();
+        }
+        
     </script>
 
     <% if (bill) { %>
@@ -625,7 +649,7 @@
                     <script src="../logic/product.2.js"></script>
                     <% } %>
 
-
+                    <script src="../logic/lotes.js"></script>
 
 
 

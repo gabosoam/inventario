@@ -318,7 +318,7 @@ $(document).ready(function () {
     dataSource = new kendo.data.DataSource({
         transport: {
             read: { url: "/voucher/read/" + bill, dataType: "json" },
-            update: { url: "/voucher/create", type: "POST", dataType: "json" },
+            update: { url: "/detail/update", type: "POST", dataType: "json" },
             destroy: { url: "/detail/delete", type: "POST", dataType: "json" },
             parameterMap: function (options, operation) {
                 if (operation !== "read" && options.models) {
@@ -336,10 +336,10 @@ $(document).ready(function () {
                 id: "id",
                 fields: {
                     name: { editable: false },
-                    barcode: { validation: { required: true, decimals: 0, min: 1 }, type: 'string', editor: editNumberWithoutSpinners },
-                    description: { validation: { required: true, }, type: 'string' },
-                    code: { type: 'string', defaultValue: bill },
-                    voucher: { editable: false }
+                    barcode: {editable: false, validation: { required: true, decimals: 0, min: 1 }, type: 'string', editor: editNumberWithoutSpinners },
+                    description: {editable:false, validation: { required: true, }, type: 'string' },
+                    code: {editable: false, type: 'string', defaultValue: bill },
+               
                 }
             }
         },
@@ -385,7 +385,7 @@ $(document).ready(function () {
             { field: "description", title: "Producto", filterable: { search: true } },
             { field: "voucher", title: "Almacén", width: '100px', hidden: true, },
             { field: "observation", title: "Observación" },
-            { command: ["destroy"], title: "Acciones" }],
+            { command: ["destroy","edit"], title: "Acciones" }],
         editable: "inline"
     })
 

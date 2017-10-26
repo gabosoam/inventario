@@ -79,16 +79,16 @@ router.get('/lotes', isLoggedIn, function (req, res, next) {
 	res.render('lotes', { user: sess.usuarioDatos });
 });
 
-router.post('/lotes/category', isLoggedIn, function (req, res, next) {
-	var data = req.body;
-	var values = data['aux[]'];
 
-	lotes.insertCategories(values, function (mensaje) {
-		res.send(mensaje);
+
+router.post('/lotes/codes',isLoggedIn, function(req,res,next) {
+	var code = req.body;
+	lotes.searchModel(code, function(data) {
+		console.log(data);
+		res.send(data);	
 	})
-
-
-});
+	
+})
 
 router.post('/lotes/model', isLoggedIn, function (req, res, next) {
 	var data = req.body;
@@ -103,11 +103,9 @@ router.post('/lotes/model', isLoggedIn, function (req, res, next) {
 
 router.post('/lotes/barcode', isLoggedIn, function (req, res, next) {
 	var data = req.body;
-	var values = data['aux[]'];
-
-	lotes.insertBarcode(values, function (mensaje) {
-		console.log(mensaje);
-		res.send(mensaje);
+	lotes.insertBarcode(data, function (message) {
+	
+		res.send(message);
 	})
 
 

@@ -22,6 +22,16 @@ router.get('/read', function (req, res, next) {
   })
 });
 
+router.get('/read2', function (req, res, next) {
+  location.read2(function (error, datos) {
+    if (error) {
+   
+    } else {
+      res.send(datos);
+    }
+  })
+});
+
 router.post('/update', isLoggedIn, function (req,res,next) {
    var data= req.body;
    location.update(data,function(error, datos){

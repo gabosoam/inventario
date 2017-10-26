@@ -14,6 +14,18 @@ module.exports = {
         });
     },
 
+    read2: function (callback) {
+        connection.query('SELECT  * FROM v_location;', function (error, results, fields) {
+            if (error) {
+ 
+                callback('error en la consulta: ' + error, null);
+            } else {
+                callback(null, results);
+                
+            }
+        });
+    },
+
     update: function (datos, callback) {
         connection.query('UPDATE `location` SET `name`=?,`description`=? WHERE (`id`=?) LIMIT 1', [datos.name.toUpperCase(),datos.description.toUpperCase(),datos.id], function (error, results, fields) {//
             if (error) {

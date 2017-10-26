@@ -296,6 +296,10 @@ $(document).ready(function () {
 
     });
 
+    
+
+
+
     $("#unit").kendoDropDownList({
         dataSource: dataSourceUnit,
         editable: false,
@@ -333,7 +337,7 @@ $(document).ready(function () {
     dataSource = new kendo.data.DataSource({
         transport: {
             read: { url: "/bill/read/" + bill, dataType: "json" },
-            update: { url: "/product/create", type: "POST", dataType: "json" },
+            update: { url: "/product/update", type: "POST", dataType: "json" },
             destroy: { url: "/product/delete", type: "POST", dataType: "json" },
             create: {
                 url: "/product/create", type: "POST", dataType: "json", success: function (data) {
@@ -359,6 +363,7 @@ $(document).ready(function () {
                     barcode: { validation: { required: true }, type: 'string', editable: false },
                     description: { validation: { required: true, }, type: 'string', editable: false },
                     bill: { type: 'string', defaultValue: bill, editable: false, visible: false },
+                    idlocation: {type:'number'},
                     code: { editable: false }
                 }
             }
@@ -374,49 +379,54 @@ $(document).ready(function () {
     },
     );
 
-    $("#grid2").kendoGrid({
-        dataSource: dataSource,
-        height: 400,
-        resizable: true,
-        scrollable: true,
-        columnMenu: true,
-        filterable: true,
-        resizable: true,
-        groupable: true,
+    $.get( "/location/read2", function( data ) {
+        $("#grid2").kendoGrid({
+            dataSource: dataSource,
+            height: 400,
+            resizable: true,
+            scrollable: true,
+            columnMenu: true,
+            filterable: true,
+            resizable: true,
+            groupable: true,
+    
+            pageable: { refresh: true, pageSizes: true, },
+            pdf: {
+                allPages: true,
+                avoidLinks: true,
+                paperSize: "A4",
+                margin: { top: "7.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
+                landscape: false,
+                repeatHeaders: true,
+                template: $("#page-template").html(),
+                scale: 0.8
+            },
+            pdfExport: function (e) {
+                var grid = $("#grid2").data("kendoGrid");
+                grid.hideColumn(5);
+                grid.hideColumn(7);
+    
+                e.promise
+                    .done(function () {
+                        grid.showColumn(5);
+                        grid.showColumn(7);
+                    });
+            },
+            columns: [
+                { field: 'id', hidden: true },
+                { field: "Producto", hidden: true, aggregates: ["min", "max", "count"], groupHeaderTemplate: "Cantidad: #= count#" },
+                { field: "barcode", aggregates: ["count"], title: "No. de serie", filterable: { search: true }, width: '20%' },
+                { field: "code", title: "Código", filterable: { search: true }, width: '15%' },
+                { field: "description", title: "Producto", filterable: { search: true } },
+                { field: "idlocation", title: "Almacén", values: data },
+                {field: "observation", title: "Observación"},
+                { field: "bill", title: "Factura", width: '1px' },
+                { command: ["edit", "destroy"], title: "Acciones" }],
+            editable: "inline"
+        })
+      });
 
-        pageable: { refresh: true, pageSizes: true, },
-        pdf: {
-            allPages: true,
-            avoidLinks: true,
-            paperSize: "A4",
-            margin: { top: "7.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
-            landscape: false,
-            repeatHeaders: true,
-            template: $("#page-template").html(),
-            scale: 0.8
-        },
-        pdfExport: function (e) {
-            var grid = $("#grid2").data("kendoGrid");
-            grid.hideColumn(5);
-            grid.hideColumn(7);
 
-            e.promise
-                .done(function () {
-                    grid.showColumn(5);
-                    grid.showColumn(7);
-                });
-        },
-        columns: [
-            { field: 'id', hidden: true },
-            { field: "Producto", hidden: true, aggregates: ["min", "max", "count"], groupHeaderTemplate: "Cantidad: #= count#" },
-            { field: "barcode", aggregates: ["count"], title: "No. de serie", filterable: { search: true }, width: '20%' },
-            { field: "code", title: "Código", filterable: { search: true }, width: '15%' },
-            { field: "description", title: "Producto", filterable: { search: true } },
-            { field: "location", title: "Almacén" },
-            { field: "bill", title: "Factura", width: '1px' },
-            { command: ["edit", "destroy"], title: "Acciones" }],
-        editable: "inline"
-    })
 
 
 

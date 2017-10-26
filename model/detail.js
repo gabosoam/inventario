@@ -43,6 +43,20 @@ module.exports = {
     });
   },
 
+  updateFromVaucher: function(data,cb) {
+    connection.query({
+      sql: 'UPDATE `detail` SET `observation`=? WHERE (`id`=?)',
+      values: [data.observation.toUpperCase(), data.id]
+    }, function(err, results, fields) {
+      if (err) {
+        console.log(err);
+        cb(err,null);
+      } else {
+        cb(null, results)
+      }
+    })
+  },
+
   update: function (datos, callback) {
     connection.query('UPDATE bill SET `provider`=?, `date`=?, `reference`=?, type=? WHERE (`id`=?) LIMIT 1', [datos.provider, new Date(datos.date).toLocaleDateString(), datos.reference.toUpperCase(), datos.type, datos.id], function (error, results, fields) {//
       if (error) {

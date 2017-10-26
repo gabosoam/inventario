@@ -99,6 +99,23 @@ router.post('/create', isLoggedIn, function (req, res, next) {
   })
 });
 
+router.post('/update', isLoggedIn, function(req, res,next) {
+  var data = req.body;
+  product.updateFromBill(data,function(err, result) {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      if (result.affectedRows>0) {
+        res.send(true);
+      }else{
+        res.sendStatus(500);
+      }
+    }
+  })
+
+  
+})
+
 
 
 router.post('/createserial', isLoggedIn, function (req, res, next) {

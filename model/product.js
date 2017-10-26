@@ -15,6 +15,21 @@ module.exports = {
         });
     },
 
+    updateFromBill: function( data,cb) {
+        connection.query({
+            sql: 'UPDATE `product` SET `location`=?, `observation`=? WHERE (`id`=?)',
+            values: [data.idlocation, data.observation.toUpperCase(), data.id]
+        },function(err, results, fields) {
+            if (err) {
+                console.log(err);
+                cb(err,null);
+            } else {
+                cb(null, results)
+            }
+        })
+        
+    },
+
     readBill: function (bill, callback) {
         connection.query('CALL p_bill(?)', bill, function (error, results, fields) {
             if (error) {
