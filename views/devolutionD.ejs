@@ -47,12 +47,10 @@
                     </li>
                     <li><a href="/"><i class="fa fa-home"></i> <span class="nav-label">Existencias</span></a></li>
                     <li>
-                        <a href="/bill"><i class="fa fa-arrow-right"></i> <span class="nav-label">Ingresos</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="/bill">Ingreso normal</a></li>
-                            <li><a href="/lotes">Ingreso por lotes</a></li>
-              
-                        </ul>
+                        <a href="/bill">
+                                    <i class="fa fa-arrow-right"></i>
+                                    <span class="nav-label">Ingresos</span>
+                                </a>
                     </li>
                     <li><a href="/vouchers"><i class="fa fa-arrow-left"></i> <span class="nav-label">Egresos</span></a></li>
                     <li class="active"><a href="/devolutions"><i class="fa fa-arrow-left"></i> <span class="nav-label">Devoluciones</span></a></li>
@@ -156,17 +154,17 @@
                                                     <label for="code">Obervación: (opcional)</label>
                                                     <textarea autofocus style="resize: none" class="form-control" name="observation" id="observation" rows="2" placeholder="Ingrese una observación"></textarea><br>
 
-                                                 
-                                                        <div class="form-group">
-                                                            <label for="pwd">Almacén:</label>
-                                                            <input type="text" class="form-control" validationMessage="Selecciona un almacén" name="location" required id="location"
-                                                                style="width: 100%">
-                                                        </div>
 
-                                                        <label for="code">Número de serie:</label>
-                                                        <input autofocus type="text" class="form-control" required id="code2" name="code" style="width: 100%" placeholder="Ingresar número de serie">
+                                                    <div class="form-group">
+                                                        <label for="pwd">Almacén:</label>
+                                                        <input type="text" class="form-control" validationMessage="Selecciona un almacén" name="location" required id="location"
+                                                            style="width: 100%">
+                                                    </div>
 
-                                                
+                                                    <label for="code">Número de serie:</label>
+                                                    <input autofocus type="text" class="form-control" required id="code2" name="code" style="width: 100%" placeholder="Ingresar número de serie">
+
+
                                                     <input id="voucher" type="hidden" value="<%=bill%>">
                                                 </div>
                                             </div>
@@ -253,7 +251,7 @@
                         <table style="width: 100%; font-size: 12px">
                             <tr>
                                 <td>
-                           
+
                                     <address>
                                         <br>
                                         <strong><%=data.name%></strong><br>
@@ -265,9 +263,11 @@
                                 <td style="text-align: right">
 
                                     <address>
-                                        <strong>Fecha:</strong> <%=data.date%> <br>
-                                        <strong>Referencia:</strong> <%=data.reference%>
-                                        
+                                        <strong>Fecha:</strong>
+                                        <%=data.date%> <br>
+                                            <strong>Referencia:</strong>
+                                            <%=data.reference%>
+
                                     </address>
                                 </td>
                             </tr>
@@ -396,7 +396,6 @@
                     var user = '<%=data.user%>';
                     var reference = '<%=data.reference%>';
                     var date = '<%=data.date%>';
-                 
                 </script>
                 <% } %>
 

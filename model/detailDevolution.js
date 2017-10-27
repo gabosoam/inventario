@@ -95,19 +95,19 @@ module.exports = {
             [data.serie, data.voucher],
             function (e, r, f) {
               if (e) {
-         
+                console.log(e)
                 callback('Existio un error', null);
               } else {
               
               
                 if (r[0]) {
                 
-                    connection.query('INSERT INTO `detailDevolution` (`devolution`, `product`, `observation`) VALUES (?,?,?)',
+                    connection.query('INSERT INTO `detaildevolution` (`devolution`, `product`, `observation`) VALUES (?,?,?)',
                       [data.voucher, results[0].id, data.observation],
                       function (e1, r1, f1) {
 
                         if (e1) {
-                     
+                          console.log(e1)
                           callback('Existio un error', null);
                         } else {
                  

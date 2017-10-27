@@ -145,6 +145,8 @@
         { field: "state", hidden:true, aggregates: ["count"], title: "Estado", filterable: { multi: true, search: true, search: true },
         groupHeaderTemplate: " #= value # (Cantidad: #= count#)" },
         {field: 'client', title:'Entregado a'},
+        {field: 'voucherdate', title:'F. Salida'},
+        {field: 'voucherid', title:'Ref. Salida'},
         { field: "location", title: "Ubicación", filterable: { multi: true, search: true } },
         { field: "observation", title: "Observación", filterable: false }],
       dataBound: function(e){

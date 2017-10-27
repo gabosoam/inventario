@@ -6,10 +6,13 @@ var barcode = [];
 
 var myarray = [];
 
+var codeaux = []
+
 
 
 
 function handleFiles(files) {
+    var codeaux = []
     // Check for the various File API support.
     if (window.FileReader) {
         // FileReader are supported.
@@ -180,8 +183,9 @@ function drawOutput2(lines) {
         }
     });
 }
-var codeaux = []
+
 function iniciar() {
+    codeaux = [];
 
     for (var i = 1; i < myarray.length-1; i++) {
         var aux = i;

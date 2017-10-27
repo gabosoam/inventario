@@ -3,6 +3,7 @@
 $(document).ready(function () {
     $( "#formsave" ).hide();
     $( "#busqueda" ).hide();
+    $( "#actions" ).hide();
    
     
 

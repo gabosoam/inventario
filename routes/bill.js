@@ -116,8 +116,8 @@ router.post('/update', isLoggedIn, function (req, res, next) {
 })
 
 router.post('/updateAdmin', isLoggedInAdmin, function (req, res, next) {
-  var datos = req.body;
-  bill.updateAdmin(datos, function (error, datos) {
+  var data = req.body;
+  bill.updateAdmin(data, function (error, datos) {
     if (error) {
 
       res.sendStatus(500);
