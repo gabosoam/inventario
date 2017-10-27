@@ -1,11 +1,11 @@
 ﻿'use strict';
 let mysql = require('mysql'),
     db_config = {
-        host: 'localhost',
+        host: '172.30.0.2',
         user: 'root',
         password: '12345',
-        database: 'inventory2',
-        port: '3306'
+        database: 'inventory',
+        port: '3307'
     },
     myConn = mysql.createConnection(db_config);
 
