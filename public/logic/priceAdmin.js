@@ -56,14 +56,14 @@ $(document).ready(function () {
         toolbar: ['excel'],
         columns: [
             { field: "count", title: "Cantidad", filterable: false },
-            { field: "code", title: "Código", filterable: { search: true } },
+            { field: "code", title: "Código", filterable: { search: true,multi: true,  } },
             { field: "description", title: "Producto", filterable: {multi: true, search: true } },
-            { field: "bill", title: "Código de ingreso", filterable: { search: true }, groupHeaderTemplate: "ACTA DE INGRESO-#= value #" },
-            { field: "name", title: "Proveedor", filterable: { search: true } },
+            { field: "bill", title: "Código de ingreso", filterable: { search: true, multi:true }, groupHeaderTemplate: "ACTA DE INGRESO-#= value #" },
+            { field: "name", title: "Proveedor", filterable: { search: true, multi:true} },
             { field: "date", title: "Fecha de ingreso", filterable: { search: true },  format: "{0:dd/MM/yyyy}" },
-            {field: "reference", title: "Referencía"},
+            {field: "reference", title: "Referencía", filterable: { search: true, multi:true} },
             { field: "price", title: "Costo Unitario", filterable: { search: true }, format:"{0:c2}" },
-            { field: "total", title: "Costo Total", filterable: { search: true },footerTemplate: "Total: $#: data.total ? sum: 0 #", format:"{0:c2}" }],
+            { field: "total", title: "Costo Total", filterable: { search: true },footerTemplate: "Total: #: kendo.toString(sum, 'C')  #" }],
             dataBound: function(e){
                 if (this.dataSource.group().length > 0) {
                   console.log($(".k-grouping-row"));

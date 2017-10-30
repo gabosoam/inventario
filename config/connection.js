@@ -5,7 +5,7 @@ let mysql = require('mysql'),
         user: 'root',
         password: '12345',
         database: 'inventory',
-        port: '3306'
+        port: '3307'
     },
     myConn = mysql.createConnection(db_config);
 

@@ -54,8 +54,8 @@ $(document).ready(function () {
             { field: "dni", title: "Cedula/RUC", filterable: { multi: true, search: true, search: true } },
             { field: "name", title: "Nombre o razón social", filterable: { multi: true, search: true, search: true } },
             { field: "address", title: "Direccion", filterable: { multi: true, search: true, search: true } },
-            { field: "phone", title: "Telefono", filterable: {  search: true, search: true } },
-            { field: "email", title: "Email", filterable: {  search: true, search: true } },
+            { field: "phone", title: "Telefono", filterable: {  multi: true, search: true } },
+            { field: "email", title: "Email", filterable: {  multi: true, search: true } },
             { command: ["edit", "destroy"], title: "Acciones"}],
         editable: "popup"
     });

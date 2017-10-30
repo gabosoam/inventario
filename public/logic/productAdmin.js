@@ -410,7 +410,7 @@ $(document).ready(function () {
             { field: "code", title: "Código", filterable: { search: true } },
             { field: "description", title: "Producto", filterable: { search: true } },
             { field: "price", title: "Costo Unitario", format:"{0:c2}" },
-            {field: "total", title:"Costo Total", footerTemplate: "Total: #: data.total ? sum: 0 #", format:"{0:c2}"},
+            {field: "total", title:"Costo Total", footerTemplate: "Total: #: kendo.toString(sum, 'C')  #", format:"{0:c2}"},
             { field: "bill", title: "Factura", width: '1px' },
             { command: ["edit",], title: "Acciones" }],
         editable: "inline"

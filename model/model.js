@@ -4,7 +4,7 @@ var connection = require('../config/connection.js');
 module.exports = {
 
     read: function (callback) {
-        connection.query('SELECT  * FROM v_modelview;', function (error, results, fields) {
+        connection.query('SELECT  * FROM v_modelview ORDER BY description;', function (error, results, fields) {
             if (error) {
                 console.log(error);
                 callback('error en la consulta: ' + error, null);

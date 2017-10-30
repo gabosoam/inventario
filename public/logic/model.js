@@ -52,12 +52,12 @@ $(document).ready(function () {
           
        
           columns: [
-              { field: "code", title: "Código", filterable: {search: true } },
-              { field: "description", title: "Producto",filterable: { search: true } },
-              { field: "brand", values:brand, title: "Marca", filterable: {search: true, search: true } },
-              { field: "category", values:category, title: "Categoría", filterable: {search: true, search: true } },
-              { field: "stockmin", title: "Stock mínimo", filterable: { search: true } },
-              { field: "unit", values:unit, title: "Unidad de medida", filterable: { search: true } },
+              { field: "code", title: "Código", filterable: {search: true,multi:true } },
+              { field: "description", title: "Producto",filterable: { search: true, multi:true } },
+              { field: "brand", values:brand, title: "Marca", filterable: {search: true, multi: true } },
+              { field: "category", values:category, title: "Categoría", filterable: {search: true, multi: true } },
+              { field: "stockmin", title: "Stock mínimo", filterable: { search: true, multi:true } },
+              { field: "unit", values:unit, title: "Unidad de medida", filterable: { search: true, multi:true } },
               { field: "count",title: "En bodega", filterable: { search: true } },
               { command: ["edit", "destroy"], title: "Acciones" }],
           editable: "popup"

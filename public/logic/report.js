@@ -129,7 +129,7 @@
        
       pageable: { refresh: true },
       columns: [
-        { field: "barcode", title: "No de serie", filterable: { search: true } },
+        { field: "barcode", title: "No de serie", filterable: { search: true, multi: true } },
         {
           field: "code", aggregates: ["count"], title: "Código",
           groupHeaderTemplate: "Código: #= value # (#= count#)", filterable: { multi: true, search: true, search: true }
@@ -141,12 +141,12 @@
         },
         { field: "brand", title: "Marca", filterable: { multi: true, search: true } },
         { field: "date", title: "F. Ingreso", filterable: { search: true, search: true }, format: "{0:dd/MM/yyyy}" },
-        { field: "reference", title: "Referencia", filterable: { search: true, search: true } },
+        { field: "reference", title: "Referencia", filterable: { multi: true, search: true } },
         { field: "state", hidden:true, aggregates: ["count"], title: "Estado", filterable: { multi: true, search: true, search: true },
         groupHeaderTemplate: " #= value # (Cantidad: #= count#)" },
-        {field: 'client', title:'Entregado a'},
+        {field: 'client', title:'Entregado a', filterable: { multi: true, search: true }},
         {field: 'voucherdate', title:'F. Salida'},
-        {field: 'voucherid', title:'Ref. Salida'},
+        {field: 'voucherid', title:'Ref. Salida', filterable: { multi: true, search: true }},
         { field: "location", title: "Ubicación", filterable: { multi: true, search: true } },
         { field: "observation", title: "Observación", filterable: false }],
       dataBound: function(e){

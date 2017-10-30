@@ -8,7 +8,7 @@ var generateHash = function (password) {
 module.exports = {
 
   read: function (callback) {
-    connection.query('SELECT  * FROM category;', function (error, results, fields) {
+    connection.query('SELECT  * FROM category ORDER BY name;', function (error, results, fields) {
       if (error) {
 
         callback('error en la consulta: ' + error, null);
@@ -20,7 +20,7 @@ module.exports = {
   },
 
   read2: function (callback) {
-    connection.query('SELECT  * FROM v_category;', function (error, results, fields) {
+    connection.query('SELECT  * FROM v_category ORDER BY text;', function (error, results, fields) {
       if (error) {
 
         callback('error en la consulta: ' + error, null);

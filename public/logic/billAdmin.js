@@ -96,13 +96,13 @@ $(document).ready(function () {
                         });
                 },
                 columns: [
-                    {field:'id', title: 'ING'},
-                    { field: "provider", values: providers, title: "Proveedor", filterable: { search: true } },
+                    {field:'id', title: 'ING', filterable: { multi: true,search: true } },
+                    { field: "provider", values: providers, title: "Proveedor",  filterable: { multi: true,search: true } },
                     { field: "date", title: "Fecha", filterable: { search: true, search: true }, format: "{0:dd/MM/yyyy}" },
-                    { field: "type", values: types, title: "Tipo documento", filterable: { multi: true, search: true, search: true } },
-                    { field: "reference", title: "Referencia", filterable: { search: true, search: true } },
-                    { field: "user", values: users, title: "Creado por" },
-                    { field: "state", values: states, title: "Estado" },
+                    { field: "type", values: types, title: "Tipo documento", filterable: { multi: true,search: true } },
+                    { field: "reference", title: "Referencia", filterable: { multi: true, search: true } },
+                    { field: "user", values: users, title: "Creado por", filterable: { multi: true,search: true } },
+                    { field: "state", values: states, title: "Estado",filterable: { multi: true,search: true } },
 
                     { command: ["edit", { text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' } ], title: "Acciones" }],
                 editable: "popup"

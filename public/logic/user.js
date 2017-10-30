@@ -64,8 +64,8 @@ $(document).ready(function () {
             { field: "name", title: "Nombre", filterable: { multi: true, search: true, search: true } },
             { field: "lastname", title: "Apellido", filterable: { multi: true, search: true, search: true } },
             { field: "username", title: "Username", filterable: { multi: true, search: true, search: true } },
-            { field: "email", title: "Correo electronico", filterable: {search: true } },
-            {field: "status", title:"Estado", values:states,filterable: { search: true }},
+            { field: "email", title: "Correo electronico", filterable: {search: true, multi:true } },
+            {field: "status", title:"Estado", values:states,filterable: { search: true, multi:true }},
             { field: "rol", values: roles, title: "Rol", filterable: { multi: true, search: true, search: true } },
             { command: ["edit","destroy"], title: "Acciones" }],
         editable: "popup"

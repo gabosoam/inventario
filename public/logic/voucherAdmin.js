@@ -62,12 +62,12 @@ $(document).ready(function () {
                 pageable: { refresh: true, pageSizes: true, },
                 toolbar: ['excel'],
                 columns: [
-                    {field: 'id', title: 'FOPN'},
-                    { field: "client", values: clients, title: "Cliente" },
+                    {field: 'id', title: 'FOPN',filterable: { multi: true,search: true }},
+                    { field: "client", values: clients, title: "Cliente",filterable: { multi: true,search: true } },
                     { field: "date", title: "Fecha",  format: "{0:dd/MM/yyyy}" },
-                    { field: "reference", title: "Referencia", filterable: { search: true } },
-                    { field: "user", values: users, title: "Creado por" },
-                    { field: "state", values: states, title: "Estado" },
+                    { field: "reference", title: "Referencia", filterable: { multi: true,search: true } },
+                    { field: "user", values: users, title: "Creado por",filterable: { multi: true,search: true } },
+                    { field: "state", values: states, title: "Estado" ,filterable: { multi: true,search: true }},
                     { command: ["edit"], title: "Acciones" }],
                 editable: "popup"
             });

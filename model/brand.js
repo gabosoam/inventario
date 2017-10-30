@@ -12,7 +12,7 @@ var connection = require('../config/connection.js');
 module.exports = {
 
     read: function (callback) {
-        connection.query('SELECT  * FROM brand;', function (error, results, fields) {
+        connection.query('SELECT  * FROM brand ORDER BY name;', function (error, results, fields) {
             if (error) {
              
                 callback('error en la consulta: ' + error, null);
@@ -24,7 +24,7 @@ module.exports = {
     },
 
     read2: function (callback) {
-        connection.query('SELECT  * FROM v_brand;', function (error, results, fields) {
+        connection.query('SELECT  * FROM v_brand ORDER BY text;', function (error, results, fields) {
             if (error) {
          
                 callback('error en la consulta: ' + error, null);

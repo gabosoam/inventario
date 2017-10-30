@@ -4,7 +4,7 @@ var connection = require('../config/connection.js');
 module.exports = {
 
     read: function (callback) {
-        connection.query('SELECT  * FROM provider;', function (error, results, fields) {
+        connection.query('SELECT  * FROM provider ORDER BY name ASC;', function (error, results, fields) {
             if (error) {
 
                 callback(error, null);
@@ -16,7 +16,7 @@ module.exports = {
     },
 
     read2: function (callback) {
-        connection.query('SELECT  * FROM v_provider;', function (error, results, fields) {
+        connection.query('SELECT  * FROM v_provider ORDER BY text ASC;', function (error, results, fields) {
             if (error) {
 
                 callback(error, null);

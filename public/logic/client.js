@@ -51,11 +51,11 @@ $(document).ready(function () {
         pageable: { refresh: true, pageSizes: true, },
         toolbar: ['create','excel'],
         columns: [
-            { field: "dni", title: "Cedula/RUC", filterable: {search: true } },
+            { field: "dni", title: "Cedula/RUC", filterable: {multi: true,search: true } },
             { field: "name", title: "Nombre o razón social", filterable: { multi: true, search: true, search: true } },
             { field: "address", title: "Direccion", filterable: { multi: true, search: true, search: true } },
             { field: "phone", title: "Telefono", filterable: { multi: true, search: true, search: true } },
-            { field: "email", title: "Correo electrónico", filterable: {search: true, search: true } },
+            { field: "email", title: "Correo electrónico", filterable: {multi: true, search: true } },
             { command: ["edit", "destroy"], title: "Acciones" }],
         editable: "popup"
     });

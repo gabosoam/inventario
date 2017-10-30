@@ -112,12 +112,12 @@ $(document).ready(function () {
                         });
                 },
                 columns: [
-                    { field: "id", title: "Código", filterable: { search: true } },
-                    { field: "provider",values: providers,editor: userNameComboBoxEditor , title: "Proveedor", filterable: { search: true } },
+                    { field: "id", title: "Código", filterable: { search: true, multi:true } },
+                    { field: "provider",values: providers,editor: userNameComboBoxEditor , title: "Proveedor", filterable: {multi:true, search: true } },
                     { field: "date", title: "Fecha", filterable: { search: true, search: true }, format: "{0:dd/MM/yyyy}" },
                     { field: "type", values: types, title: "Tipo documento", filterable: { multi: true, search: true, search: true } },
-                    { field: "reference", title: "Referencia", filterable: { search: true, search: true } },
-                    { field: "user", values: users, title: "Creado por" },
+                    { field: "reference", title: "Referencia", filterable: { multi: true, search: true } },
+                    { field: "user", values: users, title: "Creado por", filterable: {multi:true, search: true }  },
 
                     { command: ["edit", "destroy", { text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' }], title: "Acciones" }],
                 editable: "popup"

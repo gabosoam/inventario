@@ -46,7 +46,7 @@ $(document).ready(function () {
         pageable: { refresh: true, pageSizes: true, },
         toolbar: ['create','excel'],
         columns: [
-            { field: "name", title: "Categoría", filterable: {  search: true } },
+            { field: "name", title: "Categoría", filterable: {  search: true, multi:true } },
             { command: ["edit", "destroy"], title: "Acciones"}],
         editable: "inline"
     });

@@ -9,7 +9,7 @@ var generateHash = function (password) {
 
 module.exports = {
     read: function (callback) {
-        connection.query('SELECT  * FROM user;', function (error, results, fields) {
+        connection.query('SELECT  * FROM user ORDER BY name;', function (error, results, fields) {
             if (error) {
 
                 callback('error en la consulta: ' + error, null);
@@ -21,7 +21,7 @@ module.exports = {
     },
 
     read2: function (callback) {
-        connection.query('SELECT  * FROM v_user;', function (error, results, fields) {
+        connection.query('SELECT  * FROM v_user ORDER BY text;', function (error, results, fields) {
             if (error) {
                 console.log(error);
 
