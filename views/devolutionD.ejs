@@ -98,7 +98,7 @@
                     <div class="col-md-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>Acta de retiro</h5>
+                                <h5>Acta de devolución</h5>
                                 <div class="ibox-tools">
                                     <a class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
@@ -149,27 +149,10 @@
 
                                             </div>
                                             <div class="col-md-3" id="formSave">
-                                                <div class="form-group">
 
-                                                    <label for="code">Obervación: (opcional)</label>
-                                                    <textarea autofocus style="resize: none" class="form-control" name="observation" id="observation" rows="2" placeholder="Ingrese una observación"></textarea><br>
-
-
-                                                    <div class="form-group">
-                                                        <label for="pwd">Almacén:</label>
-                                                        <input type="text" class="form-control" validationMessage="Selecciona un almacén" name="location" required id="location"
-                                                            style="width: 100%">
-                                                    </div>
-
-                                                    <label for="code">Número de serie:</label>
-                                                    <input autofocus type="text" class="form-control" required id="code2" name="code" style="width: 100%" placeholder="Ingresar número de serie">
-
-
-                                                    <input id="voucher" type="hidden" value="<%=bill%>">
-                                                </div>
                                             </div>
                                             <div class="col-md-3">
-                                                <button id="closeVoucher" class="btn btn-danger">Cerrar acta de retiro</button>
+                                                <button id="closeVoucher" class="btn btn-danger">Cerrar devolución</button>
                                                 <button id="btnPDF" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">Generar reporte</button>
                                             </div>
 
@@ -180,8 +163,28 @@
 
 
                                         <br>
+                                        <div id="tabTable" class="div">
+                    
+                                          
+                                            <ul class="nav nav-tabs">
+                                              <li class="active"><a data-toggle="tab" href="#home">Productos entregados</a></li>
+                                              <li><a data-toggle="tab" href="#menu1">Devoluciones</a></li>
+                                
+                                            </ul>
+                                          
+                                            <div class="tab-content">
+                                              <div id="home" class="tab-pane fade in active">
+                                                <div id="grid2" ></div>
+                                              </div>
+                                              <div id="menu1" class="tab-pane fade">
+                                                <div id="grid3" ></div>
+                                              </div>
+                                             
+                                            </div>
+                                          </div>
+                                          <div id="grid4" ></div>
 
-                                        <div id="grid2" tabindex="0"></div>
+                                       
 
 
                                     </div>
@@ -211,6 +214,43 @@
 
         </div>
 
+    </div>
+    <div class="modal fade" id="myModalDev" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+
+                        <label for="code">Obervación: (opcional)</label>
+                        <textarea autofocus style="resize: none" class="form-control" name="observation" id="observation" rows="2" placeholder="Ingrese una observación"></textarea><br>
+
+
+                        <div class="form-group">
+                            <label for="pwd">Almacén:</label>
+                            <input type="text" class="form-control" validationMessage="Selecciona un almacén" name="location" required id="location"
+                                style="width: 100%">
+                        </div>
+
+                        
+                        <input autofocus type="hidden" class="form-control" required id="code2" name="code" style="width: 100%" placeholder="Ingresar número de serie">
+
+
+                        <input id="voucher" type="hidden" value="<%=bill%>">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="saveDevolution()">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+
+        </div>
     </div>
     <div class="modal fade" id="myModal2" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -342,6 +382,8 @@
                 </div>
             </div>
         </div>
+
+
     </div>
     <% if (user) { %>
         <script>
@@ -369,8 +411,8 @@
             <script src="../js/jspdf.min.js"></script>
 
             <script>
-                $.get("/devolution/read/<%=bill%>", function (data) {
-
+                $.get("/devolution/readdetail/<%=bill%>", function (data) {
+                    console.log(data)
 
                     w3.displayObject("Voucher", { vouchers: data });
 
@@ -396,6 +438,7 @@
                     var user = '<%=data.user%>';
                     var reference = '<%=data.reference%>';
                     var date = '<%=data.date%>';
+                    var idclient = '<%=data.idclient%>';
                 </script>
                 <% } %>
 

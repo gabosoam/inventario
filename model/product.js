@@ -15,19 +15,19 @@ module.exports = {
         });
     },
 
-    updateFromBill: function( data,cb) {
+    updateFromBill: function (data, cb) {
         connection.query({
             sql: 'UPDATE `product` SET `location`=?, `observation`=? WHERE (`id`=?)',
             values: [data.idlocation, data.observation.toUpperCase(), data.id]
-        },function(err, results, fields) {
+        }, function (err, results, fields) {
             if (err) {
-                console.log(err);
-                cb(err,null);
+    
+                cb(err, null);
             } else {
                 cb(null, results)
             }
         })
-        
+
     },
 
     readBill: function (bill, callback) {
@@ -69,25 +69,25 @@ module.exports = {
     updateprice: function name(data, callback) {
         connection.query({
             sql: 'UPDATE product SET price=? WHERE variant=? AND bill=?',
-            values: [data.price,data.id, data.bill]
-        }, function(err, results, fields) {
+            values: [data.price, data.id, data.bill]
+        }, function (err, results, fields) {
             if (err) {
                 callback(err, null);
             } else {
                 callback(null, results);
             }
-            
+
         })
-        
+
     },
 
-    readprice: function(callback) {
-  
+    readprice: function (callback) {
+
         connection.query({
             sql: 'CALL p_billprice2;'
-        }, function(err, results, fields) {
+        }, function (err, results, fields) {
             if (err) {
-        
+
                 callback(err, null)
             } else {
                 callback(null, results[0])
@@ -130,28 +130,60 @@ module.exports = {
     },
 
     createserial: function (datos, callback) {
-       
 
-       
-
-      
         for (var i = 0; i < datos.cant; i++) {
             connection.query('INSERT INTO product (barcode,variant, location, bill, price, observation) VALUES (?,?,?,?,?,?)',
                 [datos.barcode.toUpperCase(), datos.code, datos.location, datos.bill, datos.price, datos.observation.toUpperCase()],
                 function (error, results, fields) {
                     if (error) {
-                        console.log(error);
+                   
                         callback(error, null)
                     } else {
-                        console.log(results);
+               
                     }
                 });
         };
 
         callback(null, 'Ingreso correcto');
+    },
+
+    createserialauto: function (datos, callback) {
+
+        for (var i = 0; i < datos.cant; i++) {
+            console.log(i+' '+datos.cant)
+
+            connection.query('CALL barcode();', function (error, results, fields) {
+                if (error) {
+               
+                    callback('error en la consulta: ' + error, null);
+                } else {
+                    
+                    
+                    var barcode = results[0][0].barcode;
+                    connection.query('INSERT INTO product (barcode,variant, location, bill, price, observation) VALUES (?,?,?,?,?,?)',
+                        [barcode, datos.code, datos.location, datos.bill, datos.price, datos.observation.toUpperCase()],
+                        function (error, results, fields) {
+                            if (error) {
+                                console.log(error)
+                                callback(error, null)
+                            } else {
+                             if (i==datos.cant-1) {
+                                 callback(null, 'Completo')
+                             } else {
+                                 
+                             }
+                            }
+                        });
+
+                }
+            });
 
 
 
+
+        };
+
+        callback(null, 'Ingreso correcto');
     }
 }
 

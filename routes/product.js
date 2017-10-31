@@ -130,6 +130,18 @@ router.post('/createserial', isLoggedIn, function (req, res, next) {
   })
 });
 
+router.post('/createserialauto', isLoggedIn, function (req, res, next) {
+  var datos = req.body;
+
+  product.createserialauto(datos, function (error, data) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.send(data);
+    }
+  })
+});
+
 router.post('/delete', isLoggedIn, function (req, res, next) {
   var datos = req.body;
 

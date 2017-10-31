@@ -13,7 +13,7 @@ function generateBarcode() {
     $.get("/generateBarcode", function (data) {
 
         $('#barcode').val(data[0].barcode);
-      
+
     });
 }
 
@@ -108,38 +108,17 @@ function sendData2(data) {
 }
 
 function save() {
-    var data = $('#formsave').serialize();
-    var data2 = $('#formsave').serializeArray();
+    var validator = $("#formsave").kendoValidator().data("kendoValidator");
+    if (validator.validate()) {
+        var data = $('#formsave').serialize();
+        var data2 = $('#formsave').serializeArray();
 
-    console.log(data);
+        if (data2[4].value == 'S/N') {
+            var x = prompt("Ingresar la cantidad ", "1");
+            var cant = parseInt(x);
+            data2.push({ name: "cant", value: cant });
 
- 
-
-    if (data2[4].value == 'S/N') {
-        var x = prompt("Ingresar la cantidad ", "1");
-        var cant = parseInt(x);
-        data2.push({ name: "cant", value: cant });
-
-        $.post("/product/createserial", data2, function (info) {
-
-            if (info != 'Ya existe el producto') {
-                $('#grid2').data('kendoGrid').dataSource.read();
-                $('#grid2').data('kendoGrid').refresh();
-
-                $('#barcode').focus();
-            } else {
-                alert('Ya existe el número de serie');
-                $('#barcode').focus();
-            }
-
-        });
-
-
-    } else {
-        var confirmation = confirm('Está seguro de guardar el número de serie: ' + data2[4].value);
-
-        if (confirmation) {
-            $.post("/product/create", data, function (info) {
+            $.post("/product/createserial", data2, function (info) {
 
                 if (info != 'Ya existe el producto') {
                     $('#grid2').data('kendoGrid').dataSource.read();
@@ -153,12 +132,51 @@ function save() {
 
             });
 
+
+        } else if (data2[4].value.toUpperCase() == 'A/S') {
+        
+            var x = prompt("Ingresar la cantidad ", "1");
+            var cant = parseInt(x);
+            data2.push({ name: "cant", value: cant });
+
+            $.post("/product/createserialauto", data2, function (info) {
+                alert(info)
+                if (info == 'Ingreso correcto') {
+                    $('#grid2').data('kendoGrid').dataSource.read();
+                    $('#grid2').data('kendoGrid').refresh();
+
+                    $('#barcode').focus();
+                } else {
+                    alert('Existio un error');
+                    $('#barcode').focus();
+                }
+
+            });
+
+
+
+        } else {
+            var confirmation = confirm('Está seguro de guardar el número de serie: ' + data2[4].value);
+
+            if (confirmation) {
+                $.post("/product/create", data, function (info) {
+
+                    if (info != 'Ya existe el producto') {
+                        $('#grid2').data('kendoGrid').dataSource.read();
+                        $('#grid2').data('kendoGrid').refresh();
+
+                        $('#barcode').focus();
+                    } else {
+                        alert('Ya existe el número de serie');
+                        $('#barcode').focus();
+                    }
+
+                });
+
+            }
         }
+
     }
-
-
-
-
 
 }
 
@@ -296,7 +314,7 @@ $(document).ready(function () {
 
     });
 
-    
+
 
 
 
@@ -363,7 +381,7 @@ $(document).ready(function () {
                     barcode: { validation: { required: true }, type: 'string', editable: false },
                     description: { validation: { required: true, }, type: 'string', editable: false },
                     bill: { type: 'string', defaultValue: bill, editable: false, visible: false },
-                    idlocation: {type:'number'},
+                    idlocation: { type: 'number' },
                     code: { editable: false }
                 }
             }
@@ -379,7 +397,7 @@ $(document).ready(function () {
     },
     );
 
-    $.get( "/location/read2", function( data ) {
+    $.get("/location/read2", function (data) {
         $("#grid2").kendoGrid({
             dataSource: dataSource,
             height: 400,
@@ -389,7 +407,7 @@ $(document).ready(function () {
             filterable: true,
             resizable: true,
             groupable: true,
-    
+
             pageable: { refresh: true, pageSizes: true, },
             pdf: {
                 allPages: true,
@@ -405,7 +423,7 @@ $(document).ready(function () {
                 var grid = $("#grid2").data("kendoGrid");
                 grid.hideColumn(5);
                 grid.hideColumn(7);
-    
+
                 e.promise
                     .done(function () {
                         grid.showColumn(5);
@@ -419,12 +437,12 @@ $(document).ready(function () {
                 { field: "code", title: "Código", filterable: { search: true }, width: '15%' },
                 { field: "description", title: "Producto", filterable: { search: true } },
                 { field: "idlocation", title: "Almacén", values: data },
-                {field: "observation", title: "Observación"},
+                { field: "observation", title: "Observación" },
                 { field: "bill", title: "Factura", width: '1px' },
                 { command: ["edit", "destroy"], title: "Acciones" }],
             editable: "inline"
         })
-      });
+    });
 
 
 

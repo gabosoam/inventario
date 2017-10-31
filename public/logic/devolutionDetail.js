@@ -63,6 +63,42 @@ $('#code2').keypress(function (e) {
     }
 });
 
+function saveDevolution() {
+    if ($('#code2').val() != '') {
+        var data = {
+            serie: $('#code2').val(),
+            voucher: $('#voucher').val(),
+            observation: $('#observation').val(),
+            location: $('#location').val()
+        }
+        var r = confirm("Está seguro de registrar el retiro del producto con número de serie " + $('#code2').val() + "?");
+        if (r) {
+            $.post("/detaildevolution/create", data, function (info) {
+                
+                if (info == 'Se registro el retiro satisfactoriamente') {
+                    $('#grid2').data('kendoGrid').dataSource.read();
+                    $('#grid2').data('kendoGrid').refresh();
+
+                    $('#grid3').data('kendoGrid').dataSource.read();
+                    $('#grid3').data('kendoGrid').refresh();
+
+                    $('#code2').val(null);
+                    $('#myModalDev').modal("hide");
+                    $('#observation').val(null)
+                 
+
+                } else {
+                    alert(info)
+                }
+
+            });
+
+
+        }
+
+    }
+}
+
 
 
 function sendData(data) {
@@ -290,7 +326,7 @@ $(document).ready(function () {
 
     dataSource = new kendo.data.DataSource({
         transport: {
-            read: { url: "/devolution/read/" + bill, dataType: "json" },
+            read: { url: "/devolution/read/" + idclient, dataType: "json" },
             update: { url: "/devolution/create", type: "POST", dataType: "json" },
             destroy: { url: "/devolution/delete", type: "POST", dataType: "json" },
             parameterMap: function (options, operation) {
@@ -330,7 +366,11 @@ $(document).ready(function () {
     $("#grid2").kendoGrid({
         dataSource: dataSource,
         height: 400,
-
+        scrollable: true,
+        columnMenu: true,
+        filterable: true,
+        resizable: true,
+        groupable: true,
 
         pageable: { refresh: true, pageSizes: true, },
         pdf: {
@@ -353,14 +393,98 @@ $(document).ready(function () {
                 });
         },
         columns: [
-            { field: "barcode", title: "No. de serie", filterable: { search: true }, width: '20%' },
-            { field: "code", title: "Código", filterable: { search: true }, aggregates: ["min", "max", "count"], groupHeaderTemplate: "Cantidad: #= count#" },
-            { field: "description", title: "Producto", filterable: { search: true } },
-            { field: "voucher", title: "Almacén", width: '100px', hidden: true, },
-            { field: "observation", title: "Observación" },
-            { command: ["destroy"], title: "Acciones" }],
+            { field: "barcode", title: "No. de serie", filterable: { search: true, multi:true }},
+            { field: "code", title: "Código", filterable: { search: true, multi:true }, aggregates: ["min", "max", "count"], groupHeaderTemplate: "Cantidad: #= count#" },
+            { field: "description", title: "Producto", filterable: { search: true,multi:true } },
+            { field: "voucher", title: "Almacén", hidden: true, },
+            { field: "observation", title: "Observación", filterable: { search: true,multi:true } },
+            { field: "idvoucher", title: "FOPN", filterable: { search: true,multi:true } },
+            { field: "date", title: "Fecha egreso", filterable: { search: true } },
+            { command: [{ text: "Devolución", click: showDetails, iconClass: 'icon icon-chart-column' }], title: "Acciones" }],
         editable: "inline"
     })
+
+    dataSource2 = new kendo.data.DataSource({
+        transport: {
+            read: { url: "/devolution/readdetail/" + bill, dataType: "json" },
+            update: { url: "/devolution/create", type: "POST", dataType: "json" },
+            destroy: { url: "/detail/delete", type: "POST", dataType: "json" },
+            parameterMap: function (options, operation) {
+                if (operation !== "read" && options.models) {
+                    var datos = options.models[0]
+                    console.log(datos);
+                    return datos;
+                }
+            }
+        },
+        batch: true,
+        pageSize: 10,
+        serverFiltering: false,
+        schema: {
+            model: {
+                id: "id",
+                fields: {
+                    name: { editable: false },
+                    barcode: { validation: { required: true, decimals: 0, min: 1 }, type: 'string', editor: editNumberWithoutSpinners },
+                    description: { validation: { required: true, }, type: 'string' },
+                    code: { type: 'string', defaultValue: bill},
+                    voucher: { editable: false }
+                }
+            }
+        },
+        group: {
+            field: "code", aggregates: [
+                { field: "code", aggregate: "count" }
+            ]
+        },
+        aggregate: [{ field: "barcode", aggregate: "count" }],
+        pageSize: 1000
+        
+
+    },
+    );
+
+    $("#grid3").kendoGrid({
+        dataSource: dataSource2,
+        pageable: { refresh: true, pageSizes: true, },
+        pdf: {
+            allPages: true,
+            avoidLinks: true,
+            paperSize: "A4",
+            margin: { top: "7.0cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
+            landscape: false,
+            repeatHeaders: true,
+            template: $("#page-template").html(),
+            scale: 0.8,
+            fileName: "RE "+reference+".pdf",
+            
+        },
+        pdfExport: function (e) {
+            var grid = $("#grid3").data("kendoGrid");
+            grid.hideColumn(4);
+
+            e.promise
+                .done(function () {
+                    grid.showColumn(4);
+                });
+        },
+        columns: [
+            { field: "barcode", title: "No. de serie", filterable: { search: true }, width: '20%' },
+            { field: "code", title: "Código", filterable: { search: true },  aggregates: ["min", "max", "count"], groupHeaderTemplate: "Cantidad: #= count#" },
+            { field: "description", title: "Producto", filterable: { search: true } },
+            { field: "voucher", title: "Almacén", width: '100px', hidden: true, },
+            { field: "observation", title: "Observación" },],
+        editable: "inline"
+    })
+
+
+    function showDetails(e) {
+        $('#myModalDev').modal();
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $('#code2').val(dataItem.id);
+       // location.href = "/bill/" + dataItem.id;
+    }
 
 
 

@@ -25,6 +25,7 @@ router.get('/', function (req, res, next) {
   });
 });
 
+
 router.post('/create',isLoggedIn, function (req, res, next) {
 
     var data = req.body;
@@ -60,6 +61,15 @@ router.post('/create',isLoggedIn, function (req, res, next) {
     var bill = req.params.bill;
 
     devolution.read2(bill, function (error, data) {
+      res.send(data);
+
+    })
+  });
+
+  router.get('/readdetail/:bill', isLoggedIn, function (req, res, next) {
+    var bill = req.params.bill;
+
+    devolution.readDetail(bill, function (error, data) {
       res.send(data);
 
     })

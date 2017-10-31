@@ -137,6 +137,10 @@ router.get('/voucherAdmin', isLoggedInAdmin, function (req, res, next) {
 	res.render('voucherAdmin', { user: sess.adminDatos });
 });
 
+router.get('/devolutionAdmin', isLoggedInAdmin, function (req, res, next) {
+	res.render('devolutionAdmin', { user: sess.adminDatos });
+});
+
 router.get('/admin', isLoggedInAdmin, function (req, res, next) {
 	res.render('admin', { user: sess.adminDatos });
 });

@@ -1,5 +1,7 @@
 $( "#closeVoucher" ).hide();
 $( "#formSave" ).hide();
+$( "#tabTable" ).hide();
+
 
 
 var validator = $("#formsave").kendoValidator().data("kendoValidator");
@@ -288,7 +290,7 @@ $(document).ready(function () {
 
     dataSource = new kendo.data.DataSource({
         transport: {
-            read: { url: "/devolution/read/" + bill, dataType: "json" },
+            read: { url: "/devolution/readdetail/" + bill, dataType: "json" },
             update: { url: "/devolution/create", type: "POST", dataType: "json" },
             destroy: { url: "/detail/delete", type: "POST", dataType: "json" },
             parameterMap: function (options, operation) {
@@ -326,7 +328,7 @@ $(document).ready(function () {
     },
     );
 
-    $("#grid2").kendoGrid({
+    $("#grid4").kendoGrid({
         dataSource: dataSource,
         height: 400,
         pageable: { refresh: true, pageSizes: true, },

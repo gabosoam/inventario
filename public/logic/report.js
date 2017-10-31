@@ -192,7 +192,6 @@
       filterable: true,
       resizable: true,
       groupable: true,
-       
       pageable: { refresh: true },
       columns: [
         { field: "table", title: "Tabla afectada", filterable: { search: true, multi: true } },

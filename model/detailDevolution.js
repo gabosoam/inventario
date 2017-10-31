@@ -85,13 +85,13 @@ module.exports = {
 
   create: function (data, callback) {
 
-    connection.query('SELECT * FROM v_product WHERE barcode= ? LIMIT 1', [data.serie], function (error, results, fields) {
+    connection.query('SELECT * FROM v_product WHERE id= ? LIMIT 1', [data.serie], function (error, results, fields) {
 
 
       if (results[0]) {
         if (results[0].stateid == 1) {
 
-          connection.query('select * FROM v_detail where barcode=? AND idclient = (SELECT client from devolution WHERE id = ? LIMIT 1) AND state=0',
+          connection.query('select * FROM v_detail where idproduct=? AND idclient = (SELECT client from devolution WHERE id = ? LIMIT 1) AND state=0',
             [data.serie, data.voucher],
             function (e, r, f) {
               if (e) {
@@ -103,7 +103,7 @@ module.exports = {
                 if (r[0]) {
                 
                     connection.query('INSERT INTO `detaildevolution` (`devolution`, `product`, `observation`) VALUES (?,?,?)',
-                      [data.voucher, results[0].id, data.observation],
+                      [data.voucher, results[0].id, data.observation.toUpperCase()],
                       function (e1, r1, f1) {
 
                         if (e1) {

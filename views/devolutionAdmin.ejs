@@ -50,9 +50,9 @@
                     <li><a href="/admin"><i class="fa fa-home"></i> <span class="nav-label">Detalle de existencia</span></a></li>
                     <li><a href="/billAdmin"><i class="fa fa-home"></i> <span class="nav-label"> Detalle de ingresos</span></a></li>
                     <li><a href="/voucherAdmin"><i class="fa fa-home"></i> <span class="nav-label">Detalles de egresos</span></a></li>
-                    <li><a href="/devolutionAdmin"><i class="fa fa-home"></i> <span class="nav-label">Detalle devoluciones</span></a></li>
+                    <li class="active"><a href="/devolutionAdmin"><i class="fa fa-home"></i> <span class="nav-label">Detalle devoluciones</span></a></li>
                     <li><a href="/product/price"><i class="fa fa-home"></i> <span class="nav-label">Costos</span></a></li>
-                    <li  class="active"><a href="/brand"><i class="fa fa-home"></i> <span class="nav-label">Marcas</span></a></li>
+                    <li><a href="/brand"><i class="fa fa-home"></i> <span class="nav-label">Marcas</span></a></li>
                     <li><a href="/category"><i class="fa fa-home"></i> <span class="nav-label">Categorías</span></a></li>
                     <li><a href="/unit"><i class="fa fa-home"></i> <span class="nav-label">Unidades de medida</span></a></li>
                     <li><a href="/location"><i class="fa fa-home"></i> <span class="nav-label">Almacenes</span></a></li>
@@ -60,7 +60,6 @@
                     <li><a href="/client/Admin"><i class="fa fa-home"></i> <span class="nav-label">Clientes</span></a></li>
                     <li><a href="/provider/Admin"><i class="fa fa-home"></i> <span class="nav-label">Proveedores</span></a></li>
                     <li><a href="/events"><i class="fa fa-home"></i> <span class="nav-label">Eventos</span></a></li>
-
                 </ul>
 
             </div>
@@ -99,7 +98,7 @@
                     <div class="col-md-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>Marcas</h5>
+                                <h5>Gestionar ingresos</h5>
                                 <div class="ibox-tools">
                                     <a class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
@@ -140,7 +139,7 @@
     </div>
 
 
-
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <!-- Mainly scripts -->
     <script src="../inspinia/js/jquery-3.1.1.min.js"></script>
     <script src="../inspinia/js/bootstrap.min.js"></script>
@@ -153,8 +152,13 @@
     <script src="../kendo/js/kendo.all.min.js"></script>
     <script src="../kendo/js/jszip.min.js"></script>
     <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+    <% if (user) { %>
+        <script>
+            var user = '<%= user.id %>'
+        </script>
+        <% } %>
 
-    <script src="../logic/brand.js"></script>
+    <script src="../logic/devolutionAdmin.js"></script>
 
 
 
